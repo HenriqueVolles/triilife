@@ -463,17 +463,17 @@ const SUPABASE_ANON_KEY = "sb_publishable__82o84whL8yX7_ZsFfIFTw_WBk3uFjX";
 /* Opcional: URL de uma Edge Function sua que fala com uma IA pro Coach. Deixe em branco pra manter o Coach desativado. */
 const COACH_API_URL = "";
 
-let supabase = null;
+let sbClient = null;
 let usingLocalMode = false;
 
 if (window.supabase && SUPABASE_URL.indexOf("COLE_AQUI") === -1) {
-  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 } else {
   /* Sem Supabase configurado ainda: roda em modo demonstração, 100% no navegador,
      sem precisar de login nenhum (nem Claude, nem e-mail). Os dados ficam só
      neste navegador até você configurar o Supabase de verdade (veja o guia). */
   usingLocalMode = true;
-  supabase = createLocalClient();
+  sbClient = createLocalClient();
 }
 
 /* Armazenamento local à prova de falhas: tenta localStorage; se o navegador
@@ -1106,7 +1106,7 @@ function createLocalClient() {
     msg.className = "waitlist-msg";
     msg.textContent = "";
 
-    if (!supabase) {
+    if (!sbClient) {
       msg.textContent = "O Tri Life ainda não está configurado — escreva pra contato@trilife.com.br.";
       msg.className = "waitlist-msg err";
       return;
@@ -1114,7 +1114,7 @@ function createLocalClient() {
 
     btn.disabled = true;
     try {
-      const { error } = await supabase.from("waitlist").insert({ email });
+      const { error } = await sbClient.from("waitlist").insert({ email });
       if (error) throw error;
       msg.textContent = "Pronto! Você entrou na lista de espera do Tri Life.";
       msg.className = "waitlist-msg ok";
@@ -2367,7 +2367,7 @@ async function init() {
   try {
     applyLoginModeText();
 
-    const sessionResult = await supabase.auth.getSession();
+    const sessionResult = await sbClient.auth.getSession();
     const session = sessionResult && sessionResult.data && sessionResult.data.session;
     if (!session) {
       show("loading", false);
@@ -2389,8 +2389,8 @@ async function init() {
    Se "supabase" não estiver pronto por algum motivo do ambiente, não deixa
    a página inteira travar por causa disso. */
 try {
-  if (supabase && supabase.auth && typeof supabase.auth.onAuthStateChange === "function") {
-    supabase.auth.onAuthStateChange((event, session) => {
+  if (sbClient && sbClient.auth && typeof sbClient.auth.onAuthStateChange === "function") {
+    sbClient.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_IN" && session && !selfId) {
         selfId = session.user.id;
         myEmail = session.user.email;
@@ -2413,7 +2413,7 @@ el("login-form") && el("login-form").addEventListener("submit", async (e) => {
   btn.disabled = true; msg.textContent = ""; msg.className = "msg";
 
   if (usingLocalMode) {
-    const session = supabase._localLogin(value);
+    const session = sbClient._localLogin(value);
     selfId = session.user.id;
     myEmail = session.user.email;
     show("signed-out", false);
@@ -2426,7 +2426,7 @@ el("login-form") && el("login-form").addEventListener("submit", async (e) => {
   }
 
   try {
-    const { error } = await supabase.auth.signInWithOtp({ email: value, options: { emailRedirectTo: window.location.href } });
+    const { error } = await sbClient.auth.signInWithOtp({ email: value, options: { emailRedirectTo: window.location.href } });
     if (error) throw error;
     msg.textContent = "Te mandamos um link de acesso — confira seu e-mail.";
     msg.className = "msg ok";
@@ -2439,7 +2439,7 @@ el("login-form") && el("login-form").addEventListener("submit", async (e) => {
 
 async function loadProfile() {
   try {
-    const result = await supabase.from("athletes").select("*").eq("id", selfId).maybeSingle();
+    const result = await sbClient.from("athletes").select("*").eq("id", selfId).maybeSingle();
     const data = result && result.data;
     myProfile = data || null;
     show("loading", false);
@@ -2478,7 +2478,7 @@ el("onb-form").addEventListener("submit", async (e) => {
     updated_at: new Date().toISOString(),
   };
   try {
-    const { error } = await supabase.from("athletes").upsert(profile);
+    const { error } = await sbClient.from("athletes").upsert(profile);
     if (error) throw error;
     myProfile = profile;
     show("onboarding", false);
@@ -2549,7 +2549,7 @@ function renderProfileSection() {
 /* ---------------- SUGESTOES / PEDIDOS (matches) ---------------- */
 async function loadMatches() {
   el('matches-list').innerHTML = '<div class="empty">Carregando…</div>';
-  const { data } = await supabase.from('athletes').select('*');
+  const { data } = await sbClient.from('athletes').select('*');
   allAthletes = data || [];
   const others = allAthletes.filter(a => a.id !== selfId && a.name);
   el('st-matches').textContent = Math.min(others.length, 6);
@@ -2574,7 +2574,7 @@ async function loadMatches() {
 
 async function sendRequest(toId, toName, modality) {
   try {
-    const { error } = await supabase.from('matches').insert({ from_id: selfId, from_name: myProfile.name, to_id: toId, to_name: toName, modality, status: 'pendente' });
+    const { error } = await sbClient.from('matches').insert({ from_id: selfId, from_name: myProfile.name, to_id: toId, to_name: toName, modality, status: 'pendente' });
     if (error) throw error;
     loadMatches();
   } catch (e) { console.error(e); alert('Não consegui enviar o pedido agora.'); }
@@ -2582,7 +2582,7 @@ async function sendRequest(toId, toName, modality) {
 
 async function loadIncoming() {
   el('incoming-list').innerHTML = '<div class="empty">Carregando…</div>';
-  const { data } = await supabase.from('matches').select('*').or(`from_id.eq.${selfId},to_id.eq.${selfId}`);
+  const { data } = await sbClient.from('matches').select('*').or(`from_id.eq.${selfId},to_id.eq.${selfId}`);
   const all = data || [];
   const incoming = all.filter(m => m.to_id === selfId && m.status === 'pendente');
   el('st-pending').textContent = incoming.length;
@@ -2607,7 +2607,7 @@ async function loadIncoming() {
     </div>`).join('');
 }
 async function respond(matchId, status) {
-  try { const { error } = await supabase.from('matches').update({ status }).eq('id', matchId); if (error) throw error; loadIncoming(); } catch (e) { console.error(e); alert('Não consegui atualizar o pedido agora.'); }
+  try { const { error } = await sbClient.from('matches').update({ status }).eq('id', matchId); if (error) throw error; loadIncoming(); } catch (e) { console.error(e); alert('Não consegui atualizar o pedido agora.'); }
 }
 el('refresh-matches').addEventListener('click', loadMatches);
 el('refresh-incoming').addEventListener('click', loadIncoming);
@@ -2617,7 +2617,7 @@ async function loadMap() {
   const box = el('map-box');
   box.innerHTML = '';
   el('map-popover').innerHTML = '';
-  const { data } = await supabase.from('athletes').select('*');
+  const { data } = await sbClient.from('athletes').select('*');
   allAthletes = data || [];
   const others = allAthletes.filter(a => a.id !== selfId && a.name);
   if (others.length === 0) {
@@ -2653,7 +2653,7 @@ function showMapPopover(a) {
 /* ---------------- CLUBES ---------------- */
 async function loadClubs() {
   el('clubs-list').innerHTML = '<div class="empty">Carregando…</div>';
-  const { data } = await supabase.from('club_applications').select('*').eq('athlete_id', selfId);
+  const { data } = await sbClient.from('club_applications').select('*').eq('athlete_id', selfId);
   const mine = data || [];
   el('clubs-list').innerHTML = CLUBS.map(c => {
     const existing = mine.find(a => a.club_id === c.id);
@@ -2672,7 +2672,7 @@ async function loadClubs() {
 }
 async function applyToClub(clubId, clubName) {
   try {
-    const { error } = await supabase.from('club_applications').insert({ athlete_id: selfId, athlete_name: myProfile.name, club_id: clubId, club_name: clubName, status: 'pendente' });
+    const { error } = await sbClient.from('club_applications').insert({ athlete_id: selfId, athlete_name: myProfile.name, club_id: clubId, club_name: clubName, status: 'pendente' });
     if (error) throw error;
     loadClubs();
   } catch (e) { console.error(e); alert('Não consegui enviar a candidatura agora.'); }
@@ -2692,7 +2692,7 @@ el('hist-form').addEventListener('submit', async (e) => {
     notes: el('hist-notes').value.trim(),
   };
   try {
-    const { error } = await supabase.from('training_log').insert(entry);
+    const { error } = await sbClient.from('training_log').insert(entry);
     if (error) throw error;
     msg.textContent = 'Treino registrado!'; msg.className = 'msg ok';
     el('hist-partner').value = ''; el('hist-notes').value = '';
@@ -2701,7 +2701,7 @@ el('hist-form').addEventListener('submit', async (e) => {
 });
 async function loadHistory() {
   el('history-list').innerHTML = '<div class="empty">Carregando…</div>';
-  const { data } = await supabase.from('training_log').select('*').eq('athlete_id', selfId).order('date', { ascending: false });
+  const { data } = await sbClient.from('training_log').select('*').eq('athlete_id', selfId).order('date', { ascending: false });
   const mine = data || [];
   if (mine.length === 0) {
     el('history-list').innerHTML = '<div class="empty">Nenhum treino registrado ainda.</div>';
@@ -2726,7 +2726,7 @@ el('rec-save').addEventListener('click', async () => {
   const today = new Date().toISOString().slice(0, 10);
   const entry = { id: selfId + '_' + today, athlete_id: selfId, date: today, energy: parseInt(el('rec-energy').value, 10), soreness: parseInt(el('rec-soreness').value, 10), rest_day: restDay };
   try {
-    const { error } = await supabase.from('recovery_logs').upsert(entry);
+    const { error } = await sbClient.from('recovery_logs').upsert(entry);
     if (error) throw error;
     msg.textContent = 'Check-in salvo!'; msg.className = 'msg ok';
     loadRecovery();
@@ -2734,7 +2734,7 @@ el('rec-save').addEventListener('click', async () => {
 });
 async function loadRecovery() {
   el('rec-log').innerHTML = '<div class="empty">Carregando…</div>';
-  const { data } = await supabase.from('recovery_logs').select('*').eq('athlete_id', selfId).order('date', { ascending: false }).limit(7);
+  const { data } = await sbClient.from('recovery_logs').select('*').eq('athlete_id', selfId).order('date', { ascending: false }).limit(7);
   const mine = data || [];
   if (mine.length === 0) { el('rec-log').innerHTML = '<div class="empty">Nenhum check-in ainda.</div>'; return; }
   el('rec-log').innerHTML = mine.map(r => `
