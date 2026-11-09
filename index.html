@@ -458,8 +458,8 @@ footer .f-bottom { display: flex; justify-content: space-between; align-items: c
 <script>
 /* ===================== SUPABASE SETUP ===================== */
 /* Cole aqui a URL e a anon key do seu projeto (Settings > API no Supabase) quando configurar. */
-const SUPABASE_URL = "COLE_AQUI_SUA_URL_DO_SUPABASE";
-const SUPABASE_ANON_KEY = "COLE_AQUI_SUA_ANON_KEY";
+const SUPABASE_URL = "https://nayubsxnrnzfjgiuabxv.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable__82o84whL8yX7_ZsFfIFTw_WBk3uFjX";
 /* Opcional: URL de uma Edge Function sua que fala com uma IA pro Coach. Deixe em branco pra manter o Coach desativado. */
 const COACH_API_URL = "";
 
@@ -605,7 +605,7 @@ function createLocalClient() {
         <a href="#planos">Planos</a>
         <a href="#contato">Contato</a>
       </div>
-      <a class="nav-cta" href="#" onclick="showDemo(); return false;">Começar agora</a>
+      <a class="nav-cta" href="#" onclick="showApp(); return false;">Criar conta / Entrar</a>
     </div>
   </nav>
 
@@ -628,8 +628,8 @@ function createLocalClient() {
             <div class="tag"><div class="dot" style="background:#D4AF37;"></div><span>Corrida</span></div>
           </div>
           <div class="hero-ctas">
-            <a class="btn-primary" href="#" onclick="showDemo(); return false;">Começar de graça</a>
-            <a class="btn-ghost" href="#como-funciona">Ver como funciona</a>
+            <a class="btn-primary" href="#" onclick="showApp(); return false;">Criar minha conta</a>
+            <a class="btn-ghost" href="#" onclick="showDemo(); return false;">Ver demonstração</a>
           </div>
         </div>
 
@@ -894,7 +894,7 @@ function createLocalClient() {
       <h2>Isso não é só uma maquete.</h2>
       <p>Perfil com foto, mapa de atletas, clubes pra se candidatar, histórico de treinos, check-in de recuperação e um Coach com IA — tudo funcionando de fato, direto aqui no site.</p>
       <div class="demo-cta-row">
-        <a class="btn-primary" href="#" onclick="showDemo(); return false;">Abrir o Tri Life →</a>
+        <a class="btn-primary" href="#" onclick="showApp(); return false;">Abrir o Tri Life →</a>
         <a class="btn-ghost" href="#waitlist">Prefiro entrar na lista de espera</a>
       </div>
     </div>
@@ -919,7 +919,7 @@ function createLocalClient() {
             <li>Matches sugeridos</li>
             <li>Calendário básico de treinos</li>
           </ul>
-          <div class="plan-btn" style="cursor:pointer;" onclick="showDemo()">Começar agora</div>
+          <div class="plan-btn" style="cursor:pointer;" onclick="showApp()">Começar agora</div>
         </div>
 
         <div class="plan hi">
@@ -934,7 +934,7 @@ function createLocalClient() {
             <li>Lembretes e notificações avançadas</li>
             <li>Conteúdo da Escola Tri Life</li>
           </ul>
-          <div class="plan-btn" style="cursor:pointer;" onclick="showDemo()">Assinar plano</div>
+          <div class="plan-btn" style="cursor:pointer;" onclick="showApp()">Assinar plano</div>
         </div>
 
         <div class="plan">
@@ -1057,7 +1057,7 @@ function createLocalClient() {
         <a href="#como-funciona">Como funciona</a>
         <a href="#recursos">Recursos</a>
         <a href="#planos">Planos</a>
-        <a href="#" onclick="showDemo(); return false;">Abrir o Tri Life</a>
+        <a href="#" onclick="showApp(); return false;">Abrir o Tri Life</a>
       </div>
       <div class="f-col">
         <h5>Comunidade</h5>
@@ -1363,6 +1363,7 @@ function createLocalClient() {
 <div id="view-demo" style="display:none;">
   <div class="demo-topbar">
     <div class="brand">🏅 Tri Life <span class="demo-tag">Demonstração</span></div>
+    <a class="back" href="#" onclick="showApp();return false;" style="font-weight:700;">Criar minha conta &rarr;</a>
     <a class="back" href="#" onclick="showMarketing();return false;">&larr; Voltar ao site</a>
   </div>
   <div class="demo-banner">Isso é uma demonstração com um perfil fictício — nada aqui é salvo ou enviado pra ninguém.</div>
