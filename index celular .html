@@ -1,0 +1,2816 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tri Life — Nade, pedale, corra. Evolua em comunidade.</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Caveat:wght@600;700&display=swap');
+
+:root {
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(70px + env(safe-area-inset-top, 0px)); }
+* { margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  color: #16233d;
+  background: #ffffff;
+  overflow-x: hidden;
+}
+h1,h2,h3,h4 { font-family: 'Poppins', sans-serif; }
+a { text-decoration: none; }
+img, svg { max-width: 100%; display: block; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+.accent { color: #D4AF37; }
+
+/* =========================================================
+   NAV
+========================================================= */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(10,42,102,0.92); backdrop-filter: blur(8px);
+  padding-top: env(safe-area-inset-top, 0px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 66px; gap: 16px; }
+.nav .brandmark { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.nav .brandmark .word { font-weight: 800; font-size: 19px; color: #fff; letter-spacing: -0.3px; }
+.nav-links { display: flex; align-items: center; gap: 26px; flex-wrap: wrap; }
+.nav-links a { font-size: 13px; font-weight: 600; color: #c7d4ea; }
+.nav-links a:hover { color: #fff; }
+.nav-cta {
+  background: #D4AF37; color: #1c1400; font-family: 'Poppins',sans-serif; font-weight: 700;
+  font-size: 12.5px; padding: 9px 16px; border-radius: 9px; flex-shrink: 0;
+}
+.nav-toggle { display: none; }
+
+/* =========================================================
+   HERO
+========================================================= */
+.hero { position: relative; background: #0A2A66; overflow: hidden; }
+.hero .glow {
+  position: absolute; right: -140px; top: -180px; width: 480px; height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,175,55,0.26) 0%, rgba(212,175,55,0) 70%);
+}
+.hero .wrap { position: relative; z-index: 2; padding: 56px 24px 50px; }
+.hero-top { display: flex; justify-content: flex-end; margin-bottom: 26px; }
+.corner-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 1px; color: #a9bde3; text-transform: uppercase; }
+.corner-tag b { color: #D4AF37; }
+
+.hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; }
+.hero-copy .eyebrow-line { color: #7FD4FF; font-family: 'Poppins',sans-serif; font-weight: 600; font-size: 14px; margin-bottom: 10px; }
+.hero-copy h1 { font-size: 38px; color: #fff; line-height: 1.18; margin-bottom: 16px; }
+.hero-copy p.desc { font-size: 15px; color: #c7d4ea; line-height: 1.65; max-width: 460px; margin-bottom: 24px; }
+.hero-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 26px; }
+.hero-tags .tag {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px; padding: 8px 14px 8px 11px;
+}
+.hero-tags .tag .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.hero-tags .tag span { font-family: 'JetBrains Mono',monospace; font-size: 11px; letter-spacing: .4px; color: #eef2fb; text-transform: uppercase; }
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-primary {
+  background: #D4AF37; color: #1c1400; font-family: 'Poppins',sans-serif; font-weight: 700;
+  font-size: 13.5px; padding: 13px 22px; border-radius: 10px; border: none; cursor: pointer;
+}
+.btn-ghost {
+  border: 1px solid rgba(255,255,255,0.3); color: #fff; font-family: 'Poppins',sans-serif; font-weight: 700;
+  font-size: 13.5px; padding: 13px 22px; border-radius: 10px; background: none; cursor: pointer;
+}
+
+/* waitlist */
+.waitlist { background: #fff; padding: 40px 0; border-bottom: 1px solid #eef2f8; }
+.waitlist-box { background: #f2f5fa; border: 1px solid #dfe6f2; border-radius: 18px; padding: 28px 30px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.waitlist-copy { flex: 1; min-width: 220px; }
+.waitlist-copy h3 { font-size: 17px; color: #0A2A66; margin-bottom: 6px; }
+.waitlist-copy p { font-size: 12.5px; color: #5b6a80; line-height: 1.5; }
+.waitlist-form { display: flex; gap: 10px; flex-wrap: wrap; flex: 1; min-width: 260px; }
+.waitlist-form input { flex: 1; min-width: 180px; border: 1px solid #dfe6f2; border-radius: 9px; padding: 12px 14px; font-family: 'Inter',sans-serif; font-size: 13px; }
+.waitlist-form button { background: #0A2A66; color: #fff; border: none; border-radius: 9px; padding: 12px 20px; font-family: 'Poppins',sans-serif; font-weight: 700; font-size: 13px; cursor: pointer; white-space: nowrap; }
+.waitlist-msg { width: 100%; font-size: 11.5px; margin-top: 4px; min-height: 15px; }
+.waitlist-msg.ok { color: #2ecf6e; } .waitlist-msg.err { color: #c0522f; }
+
+/* device mockups */
+.device-wrap { position: relative; height: 400px; }
+.laptop {
+  position: absolute; right: 10px; top: 40px; width: 400px; max-width: 88%;
+  background: #eef2fb; border-radius: 12px; border: 6px solid #dfe6f2; padding: 14px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+}
+.laptop .lp-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.laptop .lp-title { font-family: 'Poppins',sans-serif; font-weight: 700; font-size: 12px; color: #0A2A66; }
+.laptop .lp-sub { font-size: 9px; color: #8a97ac; }
+.lp-stats { display: flex; gap: 8px; margin-bottom: 10px; }
+.lp-stats .st { flex: 1; background: #fff; border: 1px solid #dfe6f2; border-radius: 8px; padding: 8px 9px; }
+.lp-stats .st .n { font-family: 'Poppins',sans-serif; font-weight: 800; font-size: 13px; color: #0A2A66; }
+.lp-stats .st.up .n { color: #1E88E5; }
+.lp-stats .st .l { font-size: 7.5px; color: #8a97ac; margin-top: 2px; }
+.lp-chart { background: #fff; border: 1px solid #dfe6f2; border-radius: 8px; padding: 10px; display: flex; align-items: flex-end; gap: 6px; height: 78px; }
+.lp-chart .bar { flex: 1; background: linear-gradient(180deg,#1E88E5,#7FD4FF); border-radius: 3px 3px 0 0; }
+.lp-cta { margin-top: 9px; background: #D4AF37; color: #1c1400; font-size: 9px; font-weight: 700; border-radius: 6px; padding: 6px 10px; display: inline-block; font-family: 'Poppins',sans-serif; }
+
+.phone {
+  position: absolute; left: 0; top: 150px; width: 168px;
+  background: #fff; border-radius: 22px; border: 6px solid #16233d;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.4); padding: 10px 10px 14px;
+}
+.phone .ph-title { font-family: 'Poppins',sans-serif; font-weight: 700; font-size: 11px; color: #0A2A66; margin-bottom: 2px; }
+.phone .ph-sub { font-size: 8px; color: #8a97ac; margin-bottom: 8px; }
+.ph-card { background: #f2f5fa; border-radius: 8px; padding: 7px 8px; margin-bottom: 6px; }
+.ph-card .lvl-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.ph-card .lvl-row span:first-child { font-size: 8px; color: #5b7099; }
+.ph-card .lvl-row span:last-child { font-family: 'JetBrains Mono',monospace; font-size: 8px; color: #0A2A66; font-weight: 700; }
+.ph-bar { height: 5px; background: #e2e9f4; border-radius: 99px; overflow: hidden; }
+.ph-bar i { display: block; height: 100%; background: #1E88E5; border-radius: 99px; }
+.ph-match { background: #0A2A66; border-radius: 8px; padding: 8px; }
+.ph-match .mt { font-size: 8px; color: #7FD4FF; font-weight: 700; margin-bottom: 2px; }
+.ph-match .md { font-size: 7.5px; color: #c7d4ea; line-height: 1.4; }
+
+.sticker {
+  position: absolute; z-index: 3;
+  font-family: 'Caveat', cursive; font-weight: 700; color: #f0d878;
+  line-height: 1.15;
+}
+.sticker.s1 { top: 4px; right: 26px; font-size: 21px; transform: rotate(-4deg); text-align: right; width: 190px; }
+.badge-pill {
+  position: absolute; z-index: 3; background: #D4AF37; color: #1c1400;
+  font-family: 'Poppins',sans-serif; font-weight: 700; font-size: 11.5px;
+  padding: 10px 16px; border-radius: 10px; transform: rotate(-3deg);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.3); text-align: center; line-height: 1.3;
+}
+.badge-pill.b1 { bottom: 26px; right: 6px; }
+
+/* =========================================================
+   TRUST STRIP
+========================================================= */
+.trust { background: #081c50; padding: 22px 0; }
+.trust .wrap { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.trust-item { flex: 1; min-width: 160px; text-align: center; }
+.trust-item .n { font-family: 'Poppins',sans-serif; font-weight: 800; font-size: 22px; color: #D4AF37; }
+.trust-item .l { font-size: 10.5px; color: #a9bde3; margin-top: 4px; letter-spacing: .2px; }
+.trust-note { text-align: center; font-size: 9.5px; color: #6f83ad; margin-top: 14px; font-style: italic; }
+
+/* =========================================================
+   DEMO / TRY IT
+========================================================= */
+.demo { background: linear-gradient(135deg, #0A2A66 0%, #123878 100%); padding: 56px 0; position: relative; overflow: hidden; }
+.demo::before { content:""; position:absolute; left:50%; top:-200px; width:520px; height:520px; border-radius:50%; transform:translateX(-50%); background: radial-gradient(circle, rgba(212,175,55,0.18) 0%, rgba(212,175,55,0) 70%); }
+.demo .wrap { position: relative; z-index: 1; text-align: center; }
+.demo h2 { color: #fff; font-size: 26px; margin-bottom: 10px; }
+.demo p { color: #c7d4ea; font-size: 14px; max-width: 520px; margin: 0 auto 26px; line-height: 1.6; }
+.demo-cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.demo-tag { display:inline-flex; align-items:center; gap:8px; background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); border-radius:999px; padding:7px 14px; font-family:'JetBrains Mono',monospace; font-size:10.5px; color:#7FD4FF; margin-bottom:18px; }
+.demo-tag .dot { width:7px; height:7px; border-radius:50%; background:#4ADE80; }
+
+/* =========================================================
+   FAQ
+========================================================= */
+.faq { background: #f2f5fa; padding: 54px 0 56px; }
+.faq-list { max-width: 780px; }
+.faq-item { background: #fff; border: 1px solid #dfe6f2; border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
+.faq-q { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-family: 'Poppins',sans-serif; font-weight: 600; font-size: 13.5px; color: #0A2A66; }
+.faq-q .chev { transition: transform .2s ease; color: #1E88E5; font-size: 14px; flex-shrink: 0; margin-left: 12px; }
+.faq-item.open .faq-q .chev { transform: rotate(180deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .25s ease; }
+.faq-item.open .faq-a { max-height: 220px; }
+.faq-a p { padding: 0 20px 16px; font-size: 12.5px; color: #5b6a80; line-height: 1.6; }
+
+/* =========================================================
+   REVEAL ANIMATION
+========================================================= */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* =========================================================
+   HOW IT WORKS
+========================================================= */
+.how { background: #fff; padding: 54px 0 50px; }
+.section-title { font-size: 25px; color: #16233d; margin-bottom: 30px; }
+.section-eyebrow { font-family: 'JetBrains Mono',monospace; font-size: 11px; letter-spacing: 1.5px; color: #1E88E5; text-transform: uppercase; margin-bottom: 8px; }
+
+.steps-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.step-card { background: #f2f5fa; border: 1px solid #dfe6f2; border-radius: 16px; padding: 26px 22px 22px; position: relative; }
+.step-num {
+  width: 34px; height: 34px; border-radius: 10px; background: #0A2A66; color: #fff;
+  display: flex; align-items: center; justify-content: center; font-family: 'Poppins',sans-serif; font-weight: 800;
+  font-size: 15px; margin-bottom: 16px;
+}
+.step-card h4 { font-size: 15.5px; color: #0A2A66; margin-bottom: 8px; }
+.step-card p { font-size: 12.5px; color: #5b6a80; line-height: 1.55; }
+
+/* =========================================================
+   FEATURES
+========================================================= */
+.features { background: #f2f5fa; padding: 54px 0 56px; }
+.feat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px 20px; }
+.feat-icon {
+  width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  margin-bottom: 12px;
+}
+.feat-icon.gold { background: #D4AF37; }
+.feat-icon.blue { background: #0A2A66; }
+.feat-icon.green { background: #22b06b; }
+.feat-card h4 { font-size: 14px; color: #16233d; margin-bottom: 8px; }
+.feat-card ul { list-style: none; }
+.feat-card ul li { font-size: 11.5px; color: #5b6a80; margin-bottom: 5px; padding-left: 13px; position: relative; line-height: 1.4; }
+.feat-card ul li::before { content: "•"; position: absolute; left: 0; color: #c9b45a; }
+.feat-card p.sm { font-size: 11.5px; color: #5b6a80; line-height: 1.55; margin-bottom: 12px; }
+.chip-btn {
+  display: inline-block; background: #22b06b; color: #fff; font-family: 'Poppins',sans-serif;
+  font-weight: 700; font-size: 11.5px; padding: 9px 16px; border-radius: 9px;
+}
+
+/* =========================================================
+   FOR CLUBS
+========================================================= */
+.clubs { background: #fff; padding: 54px 0 56px; }
+.clubs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.clubs-copy p.desc { font-size: 14.5px; color: #5b6a80; line-height: 1.65; margin-bottom: 20px; max-width: 460px; }
+.clubs-copy ul { list-style: none; margin-bottom: 24px; }
+.clubs-copy ul li { font-size: 13px; color: #16233d; padding-left: 24px; position: relative; margin-bottom: 12px; line-height: 1.5; }
+.clubs-copy ul li::before { content: "✓"; position: absolute; left: 0; color: #1E88E5; font-weight: 700; }
+.clubs-panel {
+  background: #0A2A66; border-radius: 18px; padding: 26px 24px; position: relative; overflow: hidden;
+}
+.clubs-panel::before {
+  content: ""; position: absolute; left: -100px; bottom: -140px; width: 340px; height: 340px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(30,136,229,0.28) 0%, rgba(30,136,229,0) 70%);
+}
+.clubs-panel h4 { position: relative; z-index: 1; color: #fff; font-size: 15px; margin-bottom: 16px; }
+.club-stat-row { position: relative; z-index: 1; display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.club-stat { flex: 1; min-width: 110px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); border-radius: 10px; padding: 12px; }
+.club-stat .n { font-family: 'Poppins',sans-serif; font-weight: 800; font-size: 19px; color: #D4AF37; }
+.club-stat .l { font-size: 9.5px; color: #a9bde3; margin-top: 3px; }
+.clubs-panel .cta { position: relative; z-index: 1; }
+
+/* =========================================================
+   PRICING
+========================================================= */
+.pricing { background: #0A2A66; padding: 54px 0 56px; position: relative; overflow: hidden; }
+.pricing::before {
+  content: ""; position: absolute; left: -160px; bottom: -200px; width: 460px; height: 460px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(30,136,229,0.24) 0%, rgba(30,136,229,0) 70%);
+}
+.pricing-head { position: relative; z-index: 1; margin-bottom: 8px; }
+.pricing-head h2 { color: #fff; font-size: 25px; }
+.pricing-head p { color: #a9bde3; font-size: 13px; margin-top: 8px; margin-bottom: 30px; }
+
+.plans { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.plan { background: #101b40; border: 1px solid #22305f; border-radius: 16px; padding: 24px 22px; display: flex; flex-direction: column; }
+.plan.hi { background: #fff; border-color: #D4AF37; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+.plan-badge {
+  position: absolute; top: -13px; right: 18px; background: #D4AF37; color: #1c1400;
+  font-family: 'Poppins',sans-serif; font-weight: 700; font-size: 10px; padding: 5px 12px; border-radius: 999px;
+}
+.plan-name { font-family: 'Poppins',sans-serif; font-weight: 700; font-size: 14.5px; color: #eef2fb; margin-bottom: 6px; }
+.plan.hi .plan-name { color: #0A2A66; }
+.plan-price { font-family: 'Poppins',sans-serif; font-weight: 800; font-size: 25px; color: #fff; margin-bottom: 2px; }
+.plan.hi .plan-price { color: #0A2A66; }
+.plan-price small { font-size: 12px; font-weight: 600; opacity: 0.7; }
+.plan-note { font-size: 10.5px; color: #8fa3ce; margin-bottom: 18px; }
+.plan.hi .plan-note { color: #8a97ac; }
+.plan ul { list-style: none; flex: 1; margin-bottom: 18px; }
+.plan ul li { font-size: 12px; color: #c7d4ea; padding-left: 18px; position: relative; margin-bottom: 9px; line-height: 1.4; }
+.plan.hi ul li { color: #46516b; }
+.plan ul li::before { content: "✓"; position: absolute; left: 0; color: #7FD4FF; font-weight: 700; }
+.plan.hi ul li::before { color: #1E88E5; }
+.plan-btn { text-align: center; border-radius: 9px; padding: 11px; font-family: 'Poppins',sans-serif; font-weight: 700; font-size: 12.5px; border: 1px solid #3a4a7a; color: #eef2fb; }
+.plan.hi .plan-btn { background: #D4AF37; color: #1c1400; border: none; }
+
+/* =========================================================
+   WHY CHOOSE
+========================================================= */
+.why { background: #fff; padding: 52px 0 56px; }
+.why-row { display: grid; grid-template-columns: repeat(4, 1fr) 260px; gap: 18px; align-items: stretch; }
+.why-item .ico { margin-bottom: 10px; }
+.why-item h5 { font-size: 13px; color: #0A2A66; margin-bottom: 6px; }
+.why-item p { font-size: 11.5px; color: #7c8a9e; line-height: 1.5; }
+
+.why-cta { background: #0A2A66; border-radius: 16px; padding: 20px 22px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+.why-cta .marker { font-family: 'Caveat', cursive; font-weight: 700; font-size: 21px; color: #f0d878; line-height: 1.2; margin-bottom: 14px; }
+.why-cta a { align-self: flex-start; background: #D4AF37; color: #1c1400; font-family: 'Poppins',sans-serif; font-weight: 700; font-size: 12px; padding: 10px 16px; border-radius: 9px; }
+
+/* =========================================================
+   FOOTER
+========================================================= */
+footer { background: #081c50; padding: 40px 0 0; padding-bottom: calc(0px + env(safe-area-inset-bottom, 0px)); }
+footer .f-top { display: flex; justify-content: space-between; gap: 30px; flex-wrap: wrap; padding-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+footer .f-col h5 { color: #fff; font-size: 12px; margin-bottom: 14px; letter-spacing: .3px; }
+footer .f-col a { display: block; color: #a9bde3; font-size: 12px; margin-bottom: 9px; }
+footer .f-col a:hover { color: #fff; }
+footer .f-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; padding: 22px 0; }
+.f-left { display: flex; align-items: center; gap: 12px; }
+.f-left .word { font-weight: 800; font-size: 17px; color: #fff; }
+.f-left .tag { font-size: 10.5px; color: #a9bde3; }
+.f-mid { display: flex; align-items: center; gap: 18px; font-size: 11px; color: #c7d4ea; flex-wrap: wrap; }
+.f-mid .soc { display: flex; gap: 10px; }
+.f-mid .soc span { width: 26px; height: 26px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #c7d4ea; }
+.f-right { font-family: 'Caveat', cursive; font-weight: 700; font-size: 18px; color: #D4AF37; }
+.f-qr { display: flex; align-items: center; gap: 10px; }
+.f-qr .qr-box { background: #fff; padding: 6px; border-radius: 8px; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; }
+.f-qr .qr-label { font-family: 'JetBrains Mono',monospace; font-size: 9.5px; color: #a9bde3; line-height: 1.4; text-transform: uppercase; letter-spacing: .4px; }
+.f-qr .qr-label b { display: block; color: #fff; font-size: 11px; font-family: 'Poppins',sans-serif; letter-spacing: 0; text-transform: none; margin-bottom: 2px; }
+.f-legal { text-align: center; font-size: 10px; color: #5c76a8; padding: 16px 0; border-top: 1px solid rgba(255,255,255,0.06); }
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .device-wrap { height: 420px; margin-top: 10px; }
+  .laptop { width: 320px; }
+  .steps-row { grid-template-columns: 1fr; }
+  .feat-grid { grid-template-columns: repeat(2, 1fr); }
+  .clubs-grid { grid-template-columns: 1fr; }
+  .plans { grid-template-columns: 1fr; }
+  .why-row { grid-template-columns: repeat(2, 1fr); }
+  .why-cta { grid-column: 1 / -1; }
+  footer .f-top { flex-direction: column; gap: 22px; }
+}
+@media (max-width: 560px) {
+  .hero-copy h1 { font-size: 29px; }
+  .feat-grid { grid-template-columns: 1fr; }
+  .why-row { grid-template-columns: 1fr; }
+  .device-wrap { height: 380px; }
+  .laptop { width: 88%; left: 0; right: auto; margin: 0 auto; }
+  .phone { top: 190px; }
+  footer .wrap { flex-direction: column; align-items: flex-start; }
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
+#view-app { --navy:#0A2A66; --blue:#1E88E5; --sky:#7FD4FF; --gold:#D4AF37;
+  --ink:#16233d; --muted:#5b7099; --bg:#f2f5fa; --line:#dfe6f2; }
+#view-app * { box-sizing: border-box; margin: 0; padding: 0; }
+#view-app body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--ink); }
+#view-app h1, #view-app h2, #view-app h3, #view-app h4 { font-family: 'Poppins', sans-serif; }
+#view-app .back-bar { background: #081c50; padding: 10px 20px; text-align: center; }
+#view-app .back-bar a { color: var(--gold); font-family: 'Poppins',sans-serif; font-weight: 700; font-size: 12px; }
+#view-app .state-msg { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 13.5px; line-height: 1.6; }
+#view-app .state-msg .big { font-size: 32px; margin-bottom: 12px; }
+#view-app /* top bar inside app */
+.app-top { background: var(--navy); padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+#view-app .app-top .brand { display: flex; align-items: center; gap: 9px; }
+#view-app .app-top .brand .word { color: #fff; font-weight: 800; font-size: 15px; }
+#view-app .app-top .tag { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: #a9bde3; background: rgba(255,255,255,0.08); padding: 4px 9px; border-radius: 999px; }
+#view-app .app-top .who { font-size: 11px; color: #c7d4ea; }
+#view-app /* shell */
+.app-shell { display: grid; grid-template-columns: 220px 1fr; min-height: 70vh; }
+#view-app .app-sb { background: #0A2A66; padding: 18px 12px; display: flex; flex-direction: column; gap: 2px; }
+#view-app .asn { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 9px; font-size: 12.5px; color: #c3d3ee; cursor: pointer; }
+#view-app .asn.active { background: var(--gold); color: #1c1400; font-weight: 700; }
+#view-app .asn:not(.active):hover { background: rgba(255,255,255,0.08); }
+#view-app .app-mn { padding: 24px; max-width: 760px; }
+#view-app .card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 20px; margin-bottom: 16px; }
+#view-app .card h2 { font-size: 16px; color: var(--navy); margin-bottom: 4px; }
+#view-app .card p.sub { font-size: 12px; color: var(--muted); margin-bottom: 14px; line-height: 1.5; }
+#view-app .asec { display: none; }
+#view-app .asec.active { display: block; }
+#view-app /* buttons / fields reused across sections */
+.field { margin-bottom: 12px; }
+#view-app .field label { display: block; font-size: 11px; font-weight: 600; color: var(--muted); margin-bottom: 5px; }
+#view-app .field input, #view-app .field select, #view-app .field textarea { width: 100%; border: 1px solid var(--line); border-radius: 9px; padding: 9px 11px;
+  font-family: 'Inter', sans-serif; font-size: 13px; color: var(--ink); background: #fbfbfc; }
+#view-app .levels-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+#view-app .btn { background: var(--navy); color: #fff; border: none; border-radius: 9px; padding: 11px 16px; font-family: 'Poppins',sans-serif; font-weight: 700; font-size: 12.5px; cursor: pointer; }
+#view-app .btn.gold { background: var(--gold); color: #1c1400; }
+#view-app .btn.ghost { background: #fff; color: var(--navy); border: 1px solid var(--line); }
+#view-app .btn.small { padding: 7px 13px; font-size: 11px; }
+#view-app .btn.block { width: 100%; }
+#view-app .btn:disabled { opacity: .55; cursor: not-allowed; }
+#view-app .msg { font-size: 12px; margin-top: 8px; min-height: 16px; }
+#view-app .msg.ok { color: #2ecf6e; }
+#view-app .msg.err { color: #c0522f; }
+#view-app .empty { font-size: 12.5px; color: var(--muted); padding: 16px 4px; text-align: center; }
+#view-app .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+#view-app .bar-row .lbl { width: 70px; font-size: 11.5px; color: var(--muted); flex-shrink: 0; }
+#view-app .bar-track { flex: 1; height: 9px; background: #eef2f8; border-radius: 999px; overflow: hidden; }
+#view-app .bar-fill { height: 100%; background: var(--blue); border-radius: 999px; }
+#view-app .bar-row .val { width: 22px; text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--navy); font-weight: 700; }
+#view-app /* ---------- INICIO ---------- */
+.mini-stat-row { display: flex; gap: 10px; margin-bottom: 4px; }
+#view-app .mini-stat { flex: 1; background: var(--bg); border-radius: 10px; padding: 12px 8px; text-align: center; }
+#view-app .mini-stat .n { font-family: 'Poppins',sans-serif; font-weight: 800; font-size: 18px; color: var(--navy); }
+#view-app .mini-stat .l { font-size: 9px; color: var(--muted); margin-top: 3px; }
+#view-app .quick-nav { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+#view-app .quick-nav div { background: var(--bg); border-radius: 10px; padding: 12px; font-size: 12px; font-weight: 600; color: var(--navy); cursor: pointer; text-align: center; }
+#view-app .quick-nav div:hover { background: #e7edf9; }
+#view-app /* ---------- PERFIL ---------- */
+.avatar-wrap { position: relative; width: 84px; height: 84px; margin: 0 auto 14px; }
+#view-app .avatar-big { width: 84px; height: 84px; border-radius: 50%; background: var(--blue); color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Poppins',sans-serif; font-weight: 800; font-size: 26px; overflow: hidden; }
+#view-app .avatar-big img { width: 100%; height: 100%; object-fit: cover; }
+#view-app .profile-view-name { text-align: center; font-size: 16px; font-weight: 800; color: var(--navy); font-family: 'Poppins',sans-serif; }
+#view-app .profile-view-city { text-align: center; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+#view-app .profile-bio { text-align: center; font-size: 12px; color: var(--ink); margin: 10px 0 16px; line-height: 1.5; font-style: italic; }
+#view-app /* ---------- MAPA ---------- */
+.legend { display: flex; gap: 14px; font-size: 10.5px; color: var(--muted); flex-wrap: wrap; margin-bottom: 10px; }
+#view-app .legend span { display: inline-flex; align-items: center; gap: 5px; }
+#view-app .legend i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+#view-app .map-box { position: relative; height: 320px; border-radius: 12px; border: 1px solid var(--line); background: linear-gradient(135deg,#e3edfb 0%, var(--bg) 60%); overflow: hidden; margin-bottom: 12px; }
+#view-app .map-pin { position: absolute; width: 30px; height: 30px; border-radius: 50%; border: 2px solid #fff; display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'Poppins',sans-serif; font-weight: 700; font-size: 10px; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+#view-app .map-popover { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
+#view-app .map-popover .nm { font-weight: 700; font-size: 13px; }
+#view-app .map-note { font-size: 10.5px; color: var(--muted); font-style: italic; margin-bottom: 10px; }
+#view-app /* ---------- CLUBES ---------- */
+.club-card { display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin-bottom: 10px; gap: 12px; flex-wrap: wrap; }
+#view-app .club-card .cn { font-weight: 700; font-size: 13px; }
+#view-app .club-card .cd { font-size: 11px; color: var(--muted); margin-top: 2px; }
+#view-app .pill { display: inline-block; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 999px; }
+#view-app .pill.pendente { background: #fbf1ea; color: #c0522f; }
+#view-app .pill.aceito { background: #eaf7ee; color: #2ecf6e; }
+#view-app /* ---------- HISTORICO ---------- */
+.hist-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eef2f8; gap: 10px; flex-wrap: wrap; }
+#view-app .hist-item:last-child { border-bottom: none; }
+#view-app .hist-item .ht { font-weight: 700; font-size: 12.5px; }
+#view-app .hist-item .hd { font-size: 11px; color: var(--muted); margin-top: 2px; }
+#view-app .tab-row { display: flex; gap: 6px; margin-bottom: 14px; }
+#view-app .tab { flex: 1; text-align: center; padding: 9px; border-radius: 9px; font-size: 11.5px; font-weight: 700; color: var(--muted); background: #fff; border: 1px solid var(--line); cursor: pointer; }
+#view-app .tab.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+#view-app /* ---------- RECUPERACAO ---------- */
+.rec-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+#view-app .rec-row label { width: 130px; font-size: 12px; color: var(--ink); font-weight: 600; flex-shrink: 0; }
+#view-app .rec-row input[type=range] { flex: 1; }
+#view-app .rec-row .rv { width: 20px; font-family: 'JetBrains Mono',monospace; font-weight: 700; color: var(--navy); text-align: right; }
+#view-app .toggle-row { display: flex; align-items: center; justify-content: space-between; background: var(--bg); border-radius: 10px; padding: 12px 14px; margin-bottom: 14px; }
+#view-app .toggle { width: 38px; height: 21px; border-radius: 999px; background: #cfd8e8; position: relative; cursor: pointer; flex-shrink: 0; }
+#view-app .toggle.on { background: var(--blue); }
+#view-app .toggle::after { content:""; position: absolute; width: 17px; height: 17px; border-radius: 50%; background: #fff; top: 2px; left: 2px; transition: left .15s; }
+#view-app .toggle.on::after { left: 19px; }
+#view-app .tip-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eef2f8; font-size: 12px; color: var(--ink); line-height: 1.5; }
+#view-app .tip-item:last-child { border-bottom: none; }
+#view-app .checkin-log-item { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--muted); padding: 7px 0; border-bottom: 1px dashed #eef2f8; }
+#view-app /* ---------- COACH ---------- */
+.chat-box { background: var(--bg); border-radius: 12px; padding: 14px; height: 340px; overflow-y: auto; margin-bottom: 12px; display: flex; flex-direction: column; gap: 10px; }
+#view-app .bubble { max-width: 80%; padding: 10px 13px; border-radius: 12px; font-size: 12.5px; line-height: 1.5; }
+#view-app .bubble.user { align-self: flex-end; background: var(--navy); color: #fff; border-bottom-right-radius: 3px; }
+#view-app .bubble.assistant { align-self: flex-start; background: #fff; border: 1px solid var(--line); color: var(--ink); border-bottom-left-radius: 3px; }
+#view-app .bubble.thinking { font-style: italic; color: var(--muted); }
+#view-app .chat-input-row { display: flex; gap: 8px; }
+#view-app .chat-input-row input { flex: 1; border: 1px solid var(--line); border-radius: 9px; padding: 10px 13px; font-size: 13px; }
+#view-app .coach-note { font-size: 10.5px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+
+/* ===== AJUSTES PARA CELULAR ===== */
+@media (max-width: 720px) {
+  #view-app .app-shell { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  #view-app .app-sb { flex-direction: row; gap: 6px; padding: 8px 10px; overflow-x: auto; -webkit-overflow-scrolling: touch; position: sticky; top: 0; z-index: 30; scrollbar-width: none; }
+  #view-app .app-sb::-webkit-scrollbar { display: none; }
+  #view-app .asn { flex: 0 0 auto; white-space: nowrap; padding: 10px 14px; font-size: 13px; min-height: 40px; }
+  #view-app .app-mn { padding: 14px; max-width: 100%; min-width: 0; }
+  #view-app .app-top { padding: 10px 14px; }
+  #view-app .card { padding: 16px; border-radius: 14px; }
+  #view-app .field input, #view-app .field select, #view-app .field textarea,
+  #view-app .chat-input-row input { font-size: 16px; padding: 11px 12px; }
+  #view-app .btn { min-height: 44px; font-size: 13px; }
+  #view-app .btn.small { min-height: 38px; padding: 8px 14px; }
+  #view-app .levels-row { gap: 8px; }
+  #view-app .rec-row { flex-wrap: wrap; gap: 6px; }
+  #view-app .rec-row label { width: 100%; }
+  #view-app .rec-row input[type=range] { min-width: 0; }
+  #view-app .chat-box { height: 52vh; }
+  #view-app .map-box { height: 260px; }
+  #view-app .club-card .btn, #view-app .hist-item .btn { width: 100%; }
+  #view-app .back-bar { padding: 8px 14px; }
+}
+@media (max-width: 560px) {
+  .sticker.s1 { display: none; }
+  .hero-ctas { flex-direction: column; align-items: stretch; }
+  .hero-ctas a { text-align: center; }
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+/* ===================== SUPABASE SETUP ===================== */
+/* Cole aqui a URL e a anon key do seu projeto (Settings > API no Supabase) quando configurar. */
+const SUPABASE_URL = "https://nayubsxnrnzfjgiuabxv.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable__82o84whL8yX7_ZsFfIFTw_WBk3uFjX";
+/* Opcional: URL de uma Edge Function sua que fala com uma IA pro Coach. Deixe em branco pra manter o Coach desativado. */
+const COACH_API_URL = "";
+
+let sbClient = null;
+let usingLocalMode = false;
+
+if (window.supabase && SUPABASE_URL.indexOf("COLE_AQUI") === -1) {
+  sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+} else {
+  /* Sem Supabase configurado ainda: roda em modo demonstração, 100% no navegador,
+     sem precisar de login nenhum (nem Claude, nem e-mail). Os dados ficam só
+     neste navegador até você configurar o Supabase de verdade (veja o guia). */
+  usingLocalMode = true;
+  sbClient = createLocalClient();
+}
+
+/* Armazenamento local à prova de falhas: tenta localStorage; se o navegador
+   bloquear (comum ao abrir o arquivo direto com duplo clique, file://),
+   cai pra memória — funciona durante a sessão, só não sobrevive a um reload. */
+const safeStorage = (() => {
+  let memory = {};
+  let usable = false;
+  try {
+    const t = "__trilife_test__";
+    localStorage.setItem(t, "1");
+    localStorage.removeItem(t);
+    usable = true;
+  } catch (e) { usable = false; }
+  return {
+    get(key) {
+      if (usable) { try { return localStorage.getItem(key); } catch (e) { return memory[key] || null; } }
+      return memory[key] || null;
+    },
+    set(key, val) {
+      if (usable) { try { localStorage.setItem(key, val); return; } catch (e) { /* fall through to memory */ } }
+      memory[key] = val;
+    },
+  };
+})();
+
+function createLocalClient() {
+  const KEY = "trilife_local_store_v1";
+  function readStore() {
+    try { return JSON.parse(safeStorage.get(KEY)) || {}; } catch (e) { return {}; }
+  }
+  function writeStore(store) {
+    try { safeStorage.set(KEY, JSON.stringify(store)); } catch (e) { console.error("Não consegui salvar localmente:", e); }
+  }
+  function table(store, name) { if (!store[name]) store[name] = []; return store[name]; }
+
+  function builder(name) {
+    let filters = [];
+    let orderSpec = null, limitN = null, single = false;
+    const api = {
+      select() { return api; },
+      eq(col, val) { filters.push(r => r[col] === val); return api; },
+      or(expr) {
+        const parts = expr.split(",").map(p => { const [col, , val] = p.split("."); return { col, val }; });
+        filters.push(r => parts.some(p => String(r[p.col]) === p.val));
+        return api;
+      },
+      order(col, opts) { orderSpec = { col, asc: !(opts && opts.ascending === false) }; return api; },
+      limit(n) { limitN = n; return api; },
+      maybeSingle() { single = true; return api; },
+      then(resolve) {
+        const store = readStore();
+        let rows = table(store, name).filter(r => filters.every(f => f(r)));
+        if (orderSpec) rows = rows.slice().sort((a, b) => (a[orderSpec.col] > b[orderSpec.col] ? 1 : -1) * (orderSpec.asc ? 1 : -1));
+        if (limitN) rows = rows.slice(0, limitN);
+        resolve({ data: single ? (rows[0] || null) : rows, error: null });
+      },
+      insert(obj) {
+        const store = readStore();
+        const row = Object.assign({ id: (crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) }, obj);
+        table(store, name).push(row);
+        writeStore(store);
+        return Promise.resolve({ data: [row], error: null });
+      },
+      update(obj) {
+        return { eq(col, val) {
+          const store = readStore();
+          table(store, name).forEach(r => { if (r[col] === val) Object.assign(r, obj); });
+          writeStore(store);
+          return Promise.resolve({ data: null, error: null });
+        }};
+      },
+      upsert(obj) {
+        const store = readStore();
+        const rows = table(store, name);
+        const idx = rows.findIndex(r => r.id === obj.id);
+        if (idx >= 0) Object.assign(rows[idx], obj); else rows.push(obj);
+        writeStore(store);
+        return Promise.resolve({ data: [obj], error: null });
+      },
+    };
+    return api;
+  }
+
+  return {
+    auth: {
+      getSession: async () => {
+        const store = readStore();
+        return { data: { session: store._session || null } };
+      },
+      onAuthStateChange: () => {},
+      signInWithOtp: async () => ({ error: null }), // não usado no modo local (ver fluxo de login local)
+      signOut: async () => { const store = readStore(); store._session = null; writeStore(store); },
+    },
+    from: (name) => builder(name),
+    _localLogin(displayName) {
+      const store = readStore();
+      let uid = safeStorage.get("trilife_local_uid");
+      if (!uid) { uid = (crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()); safeStorage.set("trilife_local_uid", uid); }
+      store._session = { user: { id: uid, email: displayName } };
+      writeStore(store);
+      return store._session;
+    },
+  };
+}
+</script>
+</head>
+<body>
+<div id="view-marketing">
+
+
+  <!-- ========================= NAV ========================= -->
+  <nav class="nav">
+    <div class="wrap">
+      <div class="brandmark">
+        <svg width="32" height="32" viewBox="0 0 88 88">
+          <circle cx="44" cy="44" r="43" fill="#0A2A66" stroke="#D4AF37" stroke-width="1.5"/>
+          <path d="M44 12 A32 32 0 0 1 72.7 28" fill="none" stroke="#0B3D91" stroke-width="7" stroke-linecap="round"/>
+          <path d="M72.7 28 A32 32 0 0 1 72.7 60" fill="none" stroke="#1E88E5" stroke-width="7" stroke-linecap="round"/>
+          <path d="M72.7 60 A32 32 0 0 1 15.3 60" fill="none" stroke="#7FD4FF" stroke-width="7" stroke-linecap="round"/>
+          <path d="M15.3 60 A32 32 0 0 1 44 12" fill="none" stroke="#0B3D91" stroke-width="7" stroke-linecap="round"/>
+        </svg>
+        <div class="word">Tri Life</div>
+      </div>
+      <div class="nav-links">
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#recursos">Recursos</a>
+        <a href="#clubes">Para clubes</a>
+        <a href="#planos">Planos</a>
+        <a href="#contato">Contato</a>
+      </div>
+      <a class="nav-cta" href="#" onclick="showApp(); return false;">Criar conta / Entrar</a>
+    </div>
+  </nav>
+
+  <!-- ========================= HERO ========================= -->
+  <section class="hero">
+    <div class="glow"></div>
+    <div class="wrap">
+      <div class="hero-top">
+        <div class="corner-tag">FURB · Empreendedorismo — <b>Julio</b></div>
+      </div>
+
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow-line">A comunidade que entende o seu treino.</div>
+          <h1>Seu triathlon mais <span class="accent">equilibrado, conectado</span> e sem desnível.</h1>
+          <p class="desc">O Tri Life é a plataforma que conecta triatletas por modalidade e nível de habilidade — quem é mais forte em um esporte ajuda quem é mais fraco, e os dois evoluem juntos.</p>
+          <div class="hero-tags">
+            <div class="tag"><div class="dot" style="background:#7FD4FF;"></div><span>Natação</span></div>
+            <div class="tag"><div class="dot" style="background:#1E88E5;"></div><span>Pedal</span></div>
+            <div class="tag"><div class="dot" style="background:#D4AF37;"></div><span>Corrida</span></div>
+          </div>
+          <div class="hero-ctas">
+            <a class="btn-primary" href="#" onclick="showApp(); return false;">Criar minha conta</a>
+            <a class="btn-ghost" href="#" onclick="showDemo(); return false;">Ver demonstração</a>
+          </div>
+        </div>
+
+        <div class="device-wrap">
+          <div class="sticker s1">Mais tempo pra treinar<br>o que realmente falta:<br>a modalidade mais fraca.</div>
+
+          <div class="laptop">
+            <div class="lp-top">
+              <div><div class="lp-title">Visão geral do grupo</div><div class="lp-sub">Este mês</div></div>
+            </div>
+            <div class="lp-stats">
+              <div class="st"><div class="n">32</div><div class="l">TREINOS EM DUPLA</div></div>
+              <div class="st up"><div class="n">↑ 18%</div><div class="l">EVOLUÇÃO MÉDIA</div></div>
+              <div class="st"><div class="n">9</div><div class="l">PROVAS CONFIRMADAS</div></div>
+            </div>
+            <div class="lp-chart">
+              <div class="bar" style="height:35%;"></div>
+              <div class="bar" style="height:55%;"></div>
+              <div class="bar" style="height:40%;"></div>
+              <div class="bar" style="height:70%;"></div>
+              <div class="bar" style="height:60%;"></div>
+              <div class="bar" style="height:85%;"></div>
+            </div>
+            <div class="lp-cta">Ver evolução completa →</div>
+          </div>
+
+          <div class="phone">
+            <div class="ph-title">Olá, atleta!</div>
+            <div class="ph-sub">Seu progresso hoje</div>
+            <div class="ph-card">
+              <div class="lvl-row"><span>Natação</span><span>Nível 3</span></div>
+              <div class="ph-bar"><i style="width:55%;"></i></div>
+            </div>
+            <div class="ph-card">
+              <div class="lvl-row"><span>Pedal</span><span>Nível 5</span></div>
+              <div class="ph-bar"><i style="width:85%;"></i></div>
+            </div>
+            <div class="ph-match">
+              <div class="mt">Match sugerido</div>
+              <div class="md">Ana · Avançada em pedal, pode te ajudar a evoluir na modalidade.</div>
+            </div>
+          </div>
+
+          <div class="badge-pill b1">Matching simples.<br>Evolução real.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= TRUST STRIP ========================= -->
+  <section class="trust">
+    <div class="wrap">
+      <div class="trust-item"><div class="n">3</div><div class="l">MODALIDADES CRUZADAS EM UM SÓ PERFIL</div></div>
+      <div class="trust-item"><div class="n">~800</div><div class="l">CLUBES DE TRIATHLON MAPEADOS NO BRASIL</div></div>
+      <div class="trust-item"><div class="n">R$ 19,90</div><div class="l">POR MÊS NO PLANO PREMIUM</div></div>
+      <div class="trust-item"><div class="n">100%</div><div class="l">FOCO EM TRIATHLON, NADA GENÉRICO</div></div>
+    </div>
+    <div class="trust-note wrap">Números de mercado são estimativas do projeto, a validar durante o piloto.</div>
+  </section>
+
+  <!-- ========================= WAITLIST ========================= -->
+  <section class="waitlist" id="waitlist">
+    <div class="wrap waitlist-box">
+      <div class="waitlist-copy">
+        <h3>Quer entrar antes de todo mundo?</h3>
+        <p>Deixe seu e-mail e a gente te avisa assim que o Tri Life abrir vagas no seu clube.</p>
+      </div>
+      <form class="waitlist-form" id="waitlist-form">
+        <input type="email" id="wl-email" placeholder="seu@email.com" required>
+        <button type="submit" id="wl-submit">Entrar na lista</button>
+        <div class="waitlist-msg" id="wl-msg"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ========================= HOW IT WORKS ========================= -->
+  <section class="how" id="como-funciona">
+    <div class="wrap">
+      <div class="section-eyebrow">Como funciona</div>
+      <h2 class="section-title">Do cadastro ao treino em <span class="accent">dupla</span>, em três passos</h2>
+      <div class="steps-row">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <h4>Cadastre seu nível</h4>
+          <p>Separadamente em natação, pedal e corrida — sem misturar sua força numa modalidade com sua dificuldade em outra.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <h4>Receba sugestões</h4>
+          <p>O algoritmo cruza modalidade, nível e disponibilidade, e sugere parceiros complementares com justificativa.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <h4>Treine em dupla</h4>
+          <p>Você sempre confirma o match. Aceitou, é só combinar o treino e evoluir com reciprocidade real.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= FEATURES ========================= -->
+  <section class="features" id="recursos">
+    <div class="wrap">
+      <div class="section-eyebrow">Recursos</div>
+      <h2 class="section-title">Tudo o que você precisa <span class="accent">em um só lugar</span></h2>
+
+      <div class="feat-grid">
+        <div class="feat-card">
+          <div class="feat-icon gold">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 7h13M17 7l-4-4M17 7l-4 4"/><path d="M20 17H7M7 17l4 4M7 17l4-4"/>
+            </svg>
+          </div>
+          <h4>Matching</h4>
+          <ul>
+            <li>Cruza modalidade, nível e disponibilidade</li>
+            <li>Sugestão sempre com justificativa</li>
+            <li>Você decide se aceita o match</li>
+          </ul>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon blue">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="8" cy="8" r="3"/><path d="M3 20c0-4.2 2.2-6.4 5-6.4s5 2.2 5 6.4"/>
+              <circle cx="17" cy="9" r="2.6"/><path d="M12.6 20c0-3.6 2-5.4 4.4-5.4s4.4 1.8 4.4 5.4"/>
+            </svg>
+          </div>
+          <h4>Treino em dupla</h4>
+          <ul>
+            <li>Sugestão de treino por modalidade</li>
+            <li>Histórico de treinos confirmados</li>
+            <li>Observações e contexto do treino</li>
+          </ul>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon gold">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/>
+              <line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/>
+            </svg>
+          </div>
+          <h4>Calendário</h4>
+          <ul>
+            <li>Treinos e provas no mesmo lugar</li>
+            <li>Lembretes automáticos</li>
+            <li>Agenda por clube ou grupo</li>
+          </ul>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon blue">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8.5 9l1.5 1.5L13.5 7"/>
+              <line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="17" x2="14" y2="17"/>
+            </svg>
+          </div>
+          <h4>Checklist do perfil</h4>
+          <ul>
+            <li>Nível por modalidade</li>
+            <li>Disponibilidade de treino</li>
+            <li>Progresso do cadastro</li>
+          </ul>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon gold">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="6" y1="21" x2="6" y2="3"/><path d="M6 4h12l-3 4 3 4H6"/>
+            </svg>
+          </div>
+          <h4>Provas & metas</h4>
+          <ul>
+            <li>Provas confirmadas</li>
+            <li>Metas de evolução por modalidade</li>
+            <li>Acompanhamento até o dia da prova</li>
+          </ul>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon blue">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="14" width="3" height="6" rx="0.5"/><rect x="10.5" y="10" width="3" height="10" rx="0.5"/><rect x="17" y="5" width="3" height="15" rx="0.5"/>
+              <path d="M4 12l6-6 4 3 6-6"/>
+            </svg>
+          </div>
+          <h4>Evolução conjunta</h4>
+          <ul>
+            <li>Análise de nível por modalidade</li>
+            <li>Tendência de evolução</li>
+            <li>Visão agregada por grupo/clube</li>
+          </ul>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon gold">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3L2 8l10 5 10-5-10-5z"/><path d="M6 10.5v4.5c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5"/>
+            </svg>
+          </div>
+          <h4>Escola Tri Life</h4>
+          <ul>
+            <li>Dicas rápidas de treino</li>
+            <li>Conteúdo por modalidade</li>
+            <li>Boas práticas de reciprocidade</li>
+          </ul>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon green">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5c0 4.4-3.8 8-8.5 8-1.4 0-2.7-.3-3.8-.9L3 20l1.4-4.2a8.1 8.1 0 01-.9-3.8c0-4.4 3.8-8 8.5-8s8.5 3.6 8.5 8z"/>
+            </svg>
+          </div>
+          <h4>Também no grupo</h4>
+          <p class="sm">Converse com o Tri Life e resolva dúvidas de matching e treino de forma rápida.</p>
+          <a class="chip-btn" href="#contato">Fale com o Tri Life →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= FOR CLUBS ========================= -->
+  <section class="clubs" id="clubes">
+    <div class="wrap clubs-grid">
+      <div class="clubs-copy">
+        <div class="section-eyebrow">Para clubes e assessorias</div>
+        <h2 class="section-title" style="margin-bottom:16px;">Gerencie todos os seus atletas <span class="accent">em um só painel</span></h2>
+        <p class="desc">O plano Clube Parceiro dá ao seu clube ou assessoria uma visão agregada de todos os atletas — quem está evoluindo, quem está travado numa modalidade, e quem precisa de apoio antes de desistir.</p>
+        <ul>
+          <li>Visão agregada de nível por atleta e por modalidade</li>
+          <li>Relatórios de evolução e frequência de treino em dupla</li>
+          <li>Onboarding guiado para o clube (~1 semana)</li>
+        </ul>
+        <a class="btn-primary" href="#waitlist" style="display:inline-block;">Falar com o time</a>
+      </div>
+
+      <div class="clubs-panel">
+        <h4>Visão do clube — exemplo</h4>
+        <div class="club-stat-row">
+          <div class="club-stat"><div class="n">48</div><div class="l">ATLETAS ATIVOS</div></div>
+          <div class="club-stat"><div class="n">31</div><div class="l">TREINOS EM DUPLA / MÊS</div></div>
+          <div class="club-stat"><div class="n">6</div><div class="l">EM RISCO DE DESISTÊNCIA</div></div>
+        </div>
+        <div class="lp-chart" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14);">
+          <div class="bar" style="height:40%; background:linear-gradient(180deg,#D4AF37,#f0d878);"></div>
+          <div class="bar" style="height:60%; background:linear-gradient(180deg,#D4AF37,#f0d878);"></div>
+          <div class="bar" style="height:50%; background:linear-gradient(180deg,#D4AF37,#f0d878);"></div>
+          <div class="bar" style="height:75%; background:linear-gradient(180deg,#D4AF37,#f0d878);"></div>
+          <div class="bar" style="height:65%; background:linear-gradient(180deg,#D4AF37,#f0d878);"></div>
+          <div class="bar" style="height:90%; background:linear-gradient(180deg,#D4AF37,#f0d878);"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= LIVE DEMO ========================= -->
+  <section class="demo">
+    <div class="wrap">
+      <div class="demo-tag"><span class="dot"></span> FUNCIONA DE VERDADE — TESTE AGORA</div>
+      <h2>Isso não é só uma maquete.</h2>
+      <p>Perfil com foto, mapa de atletas, clubes pra se candidatar, histórico de treinos, check-in de recuperação e um Coach com IA — tudo funcionando de fato, direto aqui no site.</p>
+      <div class="demo-cta-row">
+        <a class="btn-primary" href="#" onclick="showApp(); return false;">Abrir o Tri Life →</a>
+        <a class="btn-ghost" href="#waitlist">Prefiro entrar na lista de espera</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= PRICING ========================= -->
+  <section class="pricing" id="planos">
+    <div class="wrap">
+      <div class="pricing-head">
+        <h2><span class="accent">Planos</span> que acompanham sua evolução</h2>
+        <p>Comece de graça e, quando fizer sentido para o seu grupo, evolua para um plano completo.</p>
+      </div>
+
+      <div class="plans">
+        <div class="plan">
+          <div class="plan-name">Tri Life Free</div>
+          <div class="plan-price">Gratuito</div>
+          <div class="plan-note">Sempre</div>
+          <ul>
+            <li>Cadastro e perfil do atleta</li>
+            <li>Registro de nível por modalidade</li>
+            <li>Matches sugeridos</li>
+            <li>Calendário básico de treinos</li>
+          </ul>
+          <div class="plan-btn" style="cursor:pointer;" onclick="showApp()">Começar agora</div>
+        </div>
+
+        <div class="plan hi">
+          <div class="plan-badge">Mais popular</div>
+          <div class="plan-name">Tri Life Premium</div>
+          <div class="plan-price">R$ 19,90<small>/mês</small></div>
+          <div class="plan-note">por atleta</div>
+          <ul>
+            <li>Tudo do Free</li>
+            <li>Sugestão de treino em dupla personalizada</li>
+            <li>Estatísticas de evolução por modalidade</li>
+            <li>Lembretes e notificações avançadas</li>
+            <li>Conteúdo da Escola Tri Life</li>
+          </ul>
+          <div class="plan-btn" style="cursor:pointer;" onclick="showApp()">Assinar plano</div>
+        </div>
+
+        <div class="plan">
+          <div class="plan-name">Clube Parceiro</div>
+          <div class="plan-price">R$ 500<small>/mês</small></div>
+          <div class="plan-note">contrato mínimo anual</div>
+          <ul>
+            <li>Tudo do Premium para os atletas do clube</li>
+            <li>Visão agregada do grupo</li>
+            <li>Gestão de múltiplos atletas</li>
+            <li>Onboarding guiado (~1 semana)</li>
+          </ul>
+          <div class="plan-btn" style="cursor:pointer;" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Falar com o time</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= FAQ ========================= -->
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <div class="section-eyebrow">Perguntas frequentes</div>
+      <h2 class="section-title">Antes de você <span class="accent">perguntar</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q">Preciso ser um atleta profissional pra usar? <span class="chev">▾</span></div>
+          <div class="faq-a"><p>Não. O Tri Life é pra qualquer triatleta amador, do iniciante ao avançado — o matching é justamente pra equilibrar diferenças de nível entre parceiros de treino.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Como o app sabe meu nível em cada modalidade? <span class="chev">▾</span></div>
+          <div class="faq-a"><p>Você mesmo informa, de forma simples (1 a 5), separado por natação, pedal e corrida. Sem prova, sem teste cronometrado — o objetivo é achar parceiros compatíveis, não ranquear ninguém.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Sou de um clube — como entra o plano Clube Parceiro? <span class="chev">▾</span></div>
+          <div class="faq-a"><p>O clube assina o plano Clube Parceiro e ganha um painel com todos os atletas cadastrados, relatórios de evolução e quem está com dificuldade numa modalidade específica. É uma camada extra em cima do que os atletas já usam.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Meus dados de localização ficam expostos pros outros atletas? <span class="chev">▾</span></div>
+          <div class="faq-a"><p>Não. A ideia é privacidade em camadas: só o necessário pra sugerir um match (modalidade, nível, região aproximada) é compartilhado — nunca sua localização exata.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Em quais cidades o Tri Life já funciona? <span class="chev">▾</span></div>
+          <div class="faq-a"><p>O piloto começa em Blumenau/SC, com expansão planejada pra Santa Catarina e depois pro resto do Brasil. Entre na lista de espera pra saber quando chegar na sua região.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= WHY CHOOSE ========================= -->
+  <section class="why">
+    <div class="wrap">
+      <h2 class="section-title" style="margin-bottom:22px;">Por que escolher o <span class="accent">Tri Life</span></h2>
+
+      <div class="why-row">
+        <div class="why-item">
+          <div class="ico">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0A2A66" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/>
+            </svg>
+          </div>
+          <h5>Privacidade em camadas</h5>
+          <p>Dados de nível e localização protegidos, com cuidado redobrado em cada camada.</p>
+        </div>
+        <div class="why-item">
+          <div class="ico">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0A2A66" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 12l3 3 7-7"/><circle cx="12" cy="12" r="9"/>
+            </svg>
+          </div>
+          <h5>Reciprocidade real</h5>
+          <p>Quem é mais forte em uma modalidade ajuda quem é mais fraco — a evolução acontece em dupla.</p>
+        </div>
+        <div class="why-item">
+          <div class="ico">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0A2A66" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>
+            </svg>
+          </div>
+          <h5>Foco na sua evolução</h5>
+          <p>Cada modalidade acompanhada de perto, sem desnível escondido até o dia da prova.</p>
+        </div>
+        <div class="why-item">
+          <div class="ico">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0A2A66" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20s-7-4.4-9.5-9C.8 7.6 2.8 4 6.3 4c2 0 3.4 1 5.7 3.5C14.3 5 15.7 4 17.7 4c3.5 0 5.5 3.6 3.8 7-2.5 4.6-9.5 9-9.5 9z"/>
+            </svg>
+          </div>
+          <h5>Feito para quem treina de verdade</h5>
+          <p>Pensado por quem vive o triathlon — não é só mais um app genérico de treino.</p>
+        </div>
+
+        <div class="why-cta">
+          <div class="marker">Não é só sobre<br>treinar sozinho.<br>É sobre evoluir<br>em comunidade.</div>
+          <a href="#planos">Comece agora →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= FOOTER ========================= -->
+  <footer id="contato">
+    <div class="wrap f-top">
+      <div class="f-col" style="flex:1.4; min-width:200px;">
+        <div class="f-left">
+          <svg width="30" height="30" viewBox="0 0 88 88">
+            <circle cx="44" cy="44" r="43" fill="#0A2A66" stroke="#D4AF37" stroke-width="1.5"/>
+            <path d="M44 12 A32 32 0 0 1 72.7 28" fill="none" stroke="#0B3D91" stroke-width="7" stroke-linecap="round"/>
+            <path d="M72.7 28 A32 32 0 0 1 72.7 60" fill="none" stroke="#1E88E5" stroke-width="7" stroke-linecap="round"/>
+            <path d="M72.7 60 A32 32 0 0 1 15.3 60" fill="none" stroke="#7FD4FF" stroke-width="7" stroke-linecap="round"/>
+            <path d="M15.3 60 A32 32 0 0 1 44 12" fill="none" stroke="#0B3D91" stroke-width="7" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <div class="word">Tri Life</div>
+            <div class="tag">Nade, pedale, corra. Evolua em comunidade.</div>
+          </div>
+        </div>
+      </div>
+      <div class="f-col">
+        <h5>Produto</h5>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#recursos">Recursos</a>
+        <a href="#planos">Planos</a>
+        <a href="#" onclick="showApp(); return false;">Abrir o Tri Life</a>
+      </div>
+      <div class="f-col">
+        <h5>Comunidade</h5>
+        <a href="#clubes">Para clubes</a>
+        <a href="#waitlist">Lista de espera</a>
+        <a href="#faq">Dúvidas frequentes</a>
+      </div>
+      <div class="f-col">
+        <h5>Contato</h5>
+        <div class="f-mid" style="margin-bottom:10px;"><span>🌐 www.trilife.com.br</span></div>
+        <div class="f-mid soc"><span>in</span><span>ig</span><span>yt</span></div>
+      </div>
+      <div class="f-col">
+        <h5>Escaneie</h5>
+        <div class="f-qr">
+          <div class="qr-box" id="qr-code"></div>
+          <div class="qr-label"><b>Escaneie e conheça</b>www.trilife.com.br</div>
+        </div>
+      </div>
+    </div>
+    <div class="f-legal">Tri Life é um projeto acadêmico em desenvolvimento — FURB, Empreendedorismo · © 2026 · Juntos até a linha de chegada!</div>
+  </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  try {
+    new QRCode(document.getElementById("qr-code"), {
+      text: "https://www.trilife.com.br",
+      width: 52,
+      height: 52,
+      colorDark: "#0A2A66",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  } catch (e) { console.error("QR code error:", e); }
+
+  // Waitlist capture, backed by Supabase (no login needed to join).
+  document.getElementById("waitlist-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const input = document.getElementById("wl-email");
+    const btn = document.getElementById("wl-submit");
+    const msg = document.getElementById("wl-msg");
+    const email = input.value.trim();
+    if (!email) return;
+
+    msg.className = "waitlist-msg";
+    msg.textContent = "";
+
+    if (!sbClient) {
+      msg.textContent = "O Tri Life ainda não está configurado — escreva pra contato@trilife.com.br.";
+      msg.className = "waitlist-msg err";
+      return;
+    }
+
+    btn.disabled = true;
+    try {
+      const { error } = await sbClient.from("waitlist").insert({ email });
+      if (error) throw error;
+      msg.textContent = "Pronto! Você entrou na lista de espera do Tri Life.";
+      msg.className = "waitlist-msg ok";
+      input.value = "";
+    } catch (err) {
+      console.error(err);
+      msg.textContent = "Não consegui salvar agora. Tenta de novo em instantes.";
+      msg.className = "waitlist-msg err";
+    } finally {
+      btn.disabled = false;
+    }
+  });
+  // FAQ accordion
+  document.querySelectorAll(".faq-q").forEach((q) => {
+    q.addEventListener("click", () => {
+      q.closest(".faq-item").classList.toggle("open");
+    });
+  });
+
+  // Reveal-on-scroll for cards
+  document.querySelectorAll(".step-card, .feat-card, .plan, .why-item, .faq-item, .club-stat").forEach((elx) => {
+    elx.classList.add("reveal");
+  });
+  try {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll(".reveal").forEach((elx) => io.observe(elx));
+  } catch (e) {
+    document.querySelectorAll(".reveal").forEach((elx) => elx.classList.add("in"));
+  }
+</script>
+
+</div>
+
+<style>
+#view-demo { --navy:#0A2A66; --blue:#1E88E5; --sky:#7FD4FF; --gold:#D4AF37; --ink:#17233b; --muted:#6b7897; --line:#e7ecf5; --bg:#f5f7fc;
+  background: var(--bg); min-height: 100vh; font-family: 'Inter', sans-serif; color: var(--ink); }
+#view-demo .demo-topbar { background: var(--navy); color: #fff; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+#view-demo .demo-topbar .brand { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 16px; display:flex; align-items:center; gap:8px; }
+#view-demo .demo-topbar a.back { color: #cfe0ff; font-size: 12.5px; text-decoration: none; }
+#view-demo .demo-tag { background: var(--gold); color: #1c1400; font-family:'JetBrains Mono',monospace; font-size: 10px; letter-spacing: .5px; font-weight: 700; padding: 3px 9px; border-radius: 999px; text-transform: uppercase; }
+#view-demo .demo-banner { background: #fff6e0; border-bottom: 1px solid #f0dca8; color: #7a5b00; font-size: 12px; text-align: center; padding: 8px 14px; line-height: 1.5; }
+#view-demo .demo-tabs { display: flex; gap: 4px; background: #fff; border-bottom: 1px solid var(--line); padding: 0 10px; overflow-x: auto; }
+#view-demo .demo-tab { border: none; background: none; padding: 13px 14px; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 12.5px; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; }
+#view-demo .demo-tab.active { color: var(--navy); border-bottom-color: var(--blue); }
+#view-demo .demo-main { max-width: 640px; margin: 0 auto; padding: 18px 16px 50px; }
+#view-demo .dsec { display: none; }
+#view-demo .dsec.active { display: block; }
+#view-demo .dcard { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 14px; box-shadow: 0 2px 10px rgba(10,42,102,0.04); }
+#view-demo .davatar { width: 58px; height: 58px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--navy)); color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 20px; flex-shrink: 0; }
+#view-demo .davatar.sm { width: 40px; height: 40px; font-size: 14px; }
+#view-demo .dprofile-head { display: flex; gap: 14px; align-items: center; }
+#view-demo .dprofile-head h2 { font-size: 18px; margin: 0 0 3px; }
+#view-demo .dprofile-head .dsub { color: var(--muted); font-size: 12.5px; }
+#view-demo .dbadge { display:inline-block; background: #eaf2ff; color: var(--blue); font-size: 10.5px; font-weight: 700; padding: 2px 9px; border-radius: 999px; margin-top: 6px; font-family: 'JetBrains Mono',monospace; letter-spacing: .3px; }
+#view-demo .dbio { font-size: 13px; color: var(--ink); line-height: 1.6; margin: 14px 0; }
+#view-demo .dbar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 12.5px; }
+#view-demo .dbar-row .dlbl { width: 90px; flex-shrink: 0; color: var(--muted); }
+#view-demo .dbar-track { flex: 1; height: 8px; background: #eef2fb; border-radius: 99px; overflow: hidden; }
+#view-demo .dbar-fill { height: 100%; background: linear-gradient(90deg, var(--sky), var(--blue)); border-radius: 99px; }
+#view-demo .dbar-val { width: 16px; text-align: right; font-weight: 700; color: var(--navy); }
+#view-demo .dcontact { font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--line); margin-top: 14px; padding-top: 14px; line-height: 1.8; }
+#view-demo .dnote { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 10px; }
+#view-demo .dgroup-title { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 13px; color: var(--navy); margin: 20px 0 8px; display: flex; align-items: center; gap: 7px; }
+#view-demo .dgroup-title:first-child { margin-top: 0; }
+#view-demo .dfriend { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+#view-demo .dfriend:last-child { border-bottom: none; }
+#view-demo .dfriend .dfi { flex: 1; }
+#view-demo .dfriend .dfn { font-weight: 700; font-size: 13.5px; }
+#view-demo .dfriend .dfc { font-size: 11.5px; color: var(--muted); }
+#view-demo .dfriend .dflast { font-size: 10.5px; color: var(--blue); margin-top: 1px; }
+#view-demo .dfriend .dflvl { font-family:'JetBrains Mono',monospace; font-size: 11px; font-weight: 700; color: var(--blue); background: #eaf2ff; padding: 2px 8px; border-radius: 99px; }
+#view-demo .dbtn { border: 1px solid var(--line); background: #fff; color: var(--navy); font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 11.5px; padding: 7px 12px; border-radius: 8px; cursor: pointer; }
+#view-demo .dbtn.gold { background: var(--gold); border-color: var(--gold); color: #1c1400; }
+#view-demo .dweek-summary { display: flex; gap: 10px; margin-bottom: 16px; }
+#view-demo .dweek-summary .dws { flex: 1; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px; text-align: center; }
+#view-demo .dweek-summary .dws .n { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 19px; color: var(--navy); }
+#view-demo .dweek-summary .dws .l { font-size: 9.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; margin-top: 2px; }
+#view-demo .dtrain { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+#view-demo .dtrain:last-child { border-bottom: none; }
+#view-demo .dtrain .dday { width: 42px; flex-shrink: 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--muted); font-weight: 700; text-transform: uppercase; }
+#view-demo .dtrain .dti { flex: 1; }
+#view-demo .dtrain .dtn { font-weight: 700; font-size: 13px; }
+#view-demo .dtrain .dtd { font-size: 11.5px; color: var(--muted); }
+#view-demo .dstatus { font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 99px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; }
+#view-demo .dstatus.done { background: #e3f6e9; color: #1d8a4a; }
+#view-demo .dstatus.pending { background: #eef1f8; color: var(--muted); }
+#view-demo .dstatus.missed { background: #fbe7e5; color: #b3372b; }
+#view-demo .dsearch { display: flex; gap: 8px; margin-bottom: 16px; }
+#view-demo .dsearch input { flex: 1; border: 1px solid var(--line); border-radius: 9px; padding: 11px 13px; font-size: 13px; font-family: 'Inter', sans-serif; }
+#view-demo .dcomposer { display: flex; gap: 10px; align-items: flex-start; }
+#view-demo .dcomposer textarea { flex: 1; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 13px; font-family: 'Inter', sans-serif; resize: none; height: 44px; background: #f7f9fd; color: var(--muted); }
+#view-demo .dpost { display: flex; gap: 12px; }
+#view-demo .dpost .dpi { flex: 1; }
+#view-demo .dpost .dpn { font-weight: 700; font-size: 13.5px; }
+#view-demo .dpost .dpm { font-size: 11px; color: var(--muted); margin-bottom: 7px; }
+#view-demo .dpost .dpt { font-size: 13px; line-height: 1.6; margin-bottom: 9px; }
+#view-demo .dpost .dpa { display: flex; gap: 16px; font-size: 11.5px; color: var(--muted); }
+#view-demo .dpost .dpcomment { background: var(--bg); border-radius: 10px; padding: 8px 11px; font-size: 12px; margin-top: 10px; }
+#view-demo .dpost .dpcomment b { color: var(--navy); }
+/* ---- nível / XP ---- */
+#view-demo .dlevel-box { display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, var(--navy), #123a85); color: #fff; border-radius: 14px; padding: 16px 18px; margin-bottom: 14px; }
+#view-demo .dlevel-box .dlv-badge { width: 46px; height: 46px; border-radius: 50%; background: var(--gold); color: #1c1400; display: flex; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 16px; flex-shrink: 0; }
+#view-demo .dlevel-box .dlv-title { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 14px; }
+#view-demo .dlevel-box .dlv-sub { font-size: 11px; color: #cfe0ff; margin-bottom: 6px; }
+#view-demo .dlevel-box .dlv-track { height: 6px; background: rgba(255,255,255,.2); border-radius: 99px; overflow: hidden; width: 100%; }
+#view-demo .dlevel-box .dlv-fill { height: 100%; background: var(--sky); border-radius: 99px; }
+/* ---- metas / conquistas ---- */
+#view-demo .dgoal-item { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+#view-demo .dgoal-item:last-child { border-bottom: none; }
+#view-demo .dgoal-item .dgi { width: 20px; height: 20px; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+#view-demo .dgoal-item.done .dgi { background: #e3f6e9; color: #1d8a4a; }
+#view-demo .dgoal-item.pending .dgi { background: #eef1f8; color: var(--muted); }
+#view-demo .dgoal-item.done span.dgt { color: var(--muted); text-decoration: line-through; }
+#view-demo .dach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; }
+#view-demo .dach-item { text-align: center; background: var(--bg); border-radius: 12px; padding: 12px 6px; }
+#view-demo .dach-item .dai { font-size: 22px; margin-bottom: 4px; }
+#view-demo .dach-item .dal { font-size: 9.5px; color: var(--muted); line-height: 1.3; }
+/* ---- matches ---- */
+#view-demo .dfilter-row { display: flex; gap: 8px; margin-bottom: 14px; }
+#view-demo .dfilter-row select { flex: 1; border: 1px solid var(--line); border-radius: 9px; padding: 9px 10px; font-size: 12.5px; font-family: 'Inter', sans-serif; background: #fff; color: var(--ink); }
+#view-demo .dmatch-card { display: flex; align-items: center; gap: 12px; }
+#view-demo .dmatch-card .dmi { flex: 1; }
+#view-demo .dmatch-card .dmn { font-weight: 700; font-size: 13.5px; }
+#view-demo .dmatch-card .dmc { font-size: 11.5px; color: var(--muted); }
+#view-demo .dcompat { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 11.5px; flex-shrink: 0; color: #fff; background: conic-gradient(var(--blue) calc(var(--pct) * 1%), #e4ebf8 0); position: relative; }
+#view-demo .dcompat::after { content: attr(data-pct) '%'; position: absolute; inset: 4px; border-radius: 50%; background: #fff; color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 10px; }
+#view-demo .dmatch-actions { display: flex; gap: 6px; flex-shrink: 0; align-items: center; }
+#view-demo .dmatch-actions .dbtn { padding: 7px 10px; font-size: 15px; line-height: 1; }
+#view-demo .dmatch-actions .dbtn.txt { font-size: 10.5px; padding: 7px 9px; }
+#view-demo #matches-empty { text-align: center; color: var(--muted); font-size: 12.5px; padding: 20px 0; display: none; }
+#view-demo .dmatch-profile { display: none; width: 100%; background: var(--bg); border-radius: 10px; padding: 12px 14px; margin: 8px 0 4px; }
+#view-demo .dmatch-profile.open { display: block; }
+#view-demo .dmatch-profile .dmp-bio { font-size: 12px; color: var(--ink); line-height: 1.5; margin-bottom: 10px; font-style: italic; }
+#view-demo .dmatch-profile .dbar-row { margin-bottom: 7px; }
+#view-demo .dmatch-profile .dbar-row .dlbl { width: 76px; font-size: 11.5px; }
+/* ---- mapa ---- */
+#view-demo .dmap-wrap { position: relative; height: 270px; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); margin-bottom: 14px;
+  background-color: #eef2fb;
+  background-image: linear-gradient(#e2e8f6 1px, transparent 1px), linear-gradient(90deg, #e2e8f6 1px, transparent 1px);
+  background-size: 34px 34px; }
+#view-demo .dmap-you { position: absolute; width: 16px; height: 16px; border-radius: 50%; background: var(--gold); border: 3px solid #fff; box-shadow: 0 0 0 4px rgba(212,175,55,.3), 0 2px 6px rgba(0,0,0,.2); transform: translate(-50%,-50%); z-index: 3; }
+#view-demo .dmap-you-label { position: absolute; transform: translate(-50%, 9px); font-size: 10px; font-family: 'JetBrains Mono',monospace; font-weight: 700; color: var(--navy); white-space: nowrap; background: rgba(255,255,255,.85); padding: 1px 5px; border-radius: 5px; z-index: 3; }
+#view-demo .dmap-pin { position: absolute; width: 28px; height: 28px; border-radius: 50% 50% 50% 0; transform: translate(-50%,-100%) rotate(-45deg); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(10,42,102,.35); border: 2px solid #fff; z-index: 2; transition: transform .12s; }
+#view-demo .dmap-pin:active { transform: translate(-50%,-100%) rotate(-45deg) scale(0.9); }
+#view-demo .dmap-pin span { transform: rotate(45deg); color: #fff; font-size: 9.5px; font-weight: 700; font-family: 'Poppins',sans-serif; }
+#view-demo .dmap-pin.natacao { background: var(--blue); }
+#view-demo .dmap-pin.pedal { background: var(--navy); }
+#view-demo .dmap-pin.corrida { background: var(--gold); }
+#view-demo .dnearby-item { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+#view-demo .dnearby-item:last-child { border-bottom: none; }
+#view-demo .dnearby-item .dni { flex: 1; }
+#view-demo .dnearby-item .dnn { font-weight: 700; font-size: 13.5px; }
+#view-demo .dnearby-item .dnc { font-size: 11.5px; color: var(--muted); }
+#view-demo .dnearby-item .dndist { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--navy); white-space: nowrap; }
+#view-demo .dmap-legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 11px; color: var(--muted); margin-top: 10px; }
+#view-demo .dmap-legend span { display: inline-flex; align-items: center; gap: 5px; }
+#view-demo .dmap-legend i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+#view-demo .dmap-detail { display: none; background: var(--bg); border-radius: 12px; padding: 14px; margin-top: 4px; }
+#view-demo .dmap-detail.open { display: block; }
+#view-demo .dmap-detail .dmdh { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+#view-demo .dmap-detail .dmdn { font-weight: 700; font-size: 13.5px; }
+#view-demo .dmap-detail .dmdc { font-size: 11.5px; color: var(--muted); }
+#view-demo .dmap-detail .dmp-bio { font-size: 12px; font-style: italic; margin-bottom: 10px; }
+#view-demo .dmap-detail .dbar-row .dlbl { width: 76px; font-size: 11.5px; }
+#view-demo .dmap-detail .dmd-actions { display: flex; gap: 8px; margin-top: 10px; }
+/* ---- sub-abas (dentro de Matches e Social) ---- */
+#view-demo .dsubtabs { display: flex; gap: 8px; margin-bottom: 14px; }
+#view-demo .dsubtab { border: 1px solid var(--line); background: #fff; color: var(--muted); font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 12px; padding: 7px 14px; border-radius: 999px; cursor: pointer; }
+#view-demo .dsubtab.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+#view-demo .dmsub { display: none; }
+#view-demo .dmsub.active { display: block; }
+/* ---- pedidos (matches enviados/recebidos) ---- */
+#view-demo .dreq-item { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+#view-demo .dreq-item:last-child { border-bottom: none; }
+#view-demo .dreq-item .dri { flex: 1; }
+#view-demo .dreq-item .drn { font-weight: 700; font-size: 13.5px; }
+#view-demo .dreq-item .drc { font-size: 11.5px; color: var(--muted); }
+#view-demo .dreq-status { font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 99px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; white-space: nowrap; }
+#view-demo .dreq-status.pending { background: #fff6e0; color: #96730a; }
+#view-demo .dreq-status.accepted { background: #e3f6e9; color: #1d8a4a; }
+#view-demo .dreq-status.declined { background: #fbe7e5; color: #b3372b; }
+#view-demo .dreq-actions { display: flex; gap: 6px; flex-shrink: 0; }
+#view-demo .dreq-actions .dbtn { font-size: 11px; padding: 6px 10px; }
+#view-demo .dbtn.sent { background: #eef1f8; border-color: #eef1f8; color: var(--muted); cursor: default; }
+/* ---- provas / equipamentos / evolução ---- */
+#view-demo .drace-item { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+#view-demo .drace-item:last-child { border-bottom: none; }
+#view-demo .drace-item .dri2 { width: 36px; height: 36px; border-radius: 9px; background: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+#view-demo .drace-item .dra { flex: 1; }
+#view-demo .drace-item .drt { font-weight: 700; font-size: 13px; }
+#view-demo .drace-item .drd { font-size: 11.5px; color: var(--muted); }
+#view-demo .dgear-item { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 12.5px; }
+#view-demo .dgear-item:last-child { border-bottom: none; }
+#view-demo .dgear-item .dgl { color: var(--muted); }
+#view-demo .dgear-item .dgv { font-weight: 600; text-align: right; }
+#view-demo .devo-row { margin-bottom: 14px; }
+#view-demo .devo-row:last-child { margin-bottom: 0; }
+#view-demo .devo-head { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 5px; }
+#view-demo .devo-head .devl { color: var(--muted); }
+#view-demo .devo-head .devv { font-weight: 700; color: var(--navy); }
+#view-demo .devo-track { height: 8px; background: #eef2fb; border-radius: 99px; position: relative; overflow: hidden; }
+#view-demo .devo-before { position: absolute; height: 100%; background: #cdd8ee; border-radius: 99px; }
+#view-demo .devo-now { position: absolute; height: 100%; background: linear-gradient(90deg, var(--sky), var(--blue)); border-radius: 99px; }
+/* ---- treinos: detalhe expansível ---- */
+#view-demo .dtrain { align-items: flex-start; flex-wrap: wrap; }
+#view-demo .dtrain-toggle { background: none; border: none; color: var(--blue); font-size: 11px; font-weight: 700; cursor: pointer; padding: 0; margin-left: 42px; }
+#view-demo .dtrain-detail { display: none; width: 100%; margin: 6px 0 2px 42px; background: var(--bg); border-radius: 10px; padding: 10px 12px; font-size: 12px; color: var(--ink); line-height: 1.7; }
+#view-demo .dtrain-detail.open { display: block; }
+#view-demo .dtrain-detail b { color: var(--navy); }
+/* ---- treinadores ---- */
+#view-demo .dcoach-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+#view-demo .dcoach-item:last-child { border-bottom: none; }
+#view-demo .dcoach-item .dci { flex: 1; }
+#view-demo .dcoach-item .dcn { font-weight: 700; font-size: 13.5px; }
+#view-demo .dcoach-item .dcm { font-size: 11px; color: var(--blue); font-weight: 600; }
+#view-demo .dcoach-item .dcc { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+#view-demo .dcoach-item .dcstars { font-size: 11px; color: var(--gold); margin-top: 2px; }
+#view-demo .dcoach-actions { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+#view-demo .dcoach-cta { background: linear-gradient(135deg, var(--navy), #123a85); color: #fff; border-radius: 14px; padding: 16px 18px; text-align: center; }
+#view-demo .dcoach-cta .dcct { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 13.5px; margin-bottom: 4px; }
+#view-demo .dcoach-cta .dccs { font-size: 11.5px; color: #cfe0ff; margin-bottom: 12px; line-height: 1.5; }
+#view-demo .dcoach-item-wrap { padding: 2px 0; }
+#view-demo .dcoach-profile { display: none; background: var(--bg); border-radius: 10px; padding: 12px 14px; margin: 2px 0 12px; }
+#view-demo .dcoach-profile.open { display: block; }
+#view-demo .dcoach-profile .dcp-bio { font-size: 12px; color: var(--ink); line-height: 1.5; margin-bottom: 9px; font-style: italic; }
+#view-demo .dcoach-profile .dcp-row { font-size: 11.5px; color: var(--muted); margin-bottom: 5px; line-height: 1.5; }
+#view-demo .dcoach-profile .dcp-row b { color: var(--ink); }
+#view-demo .dcoach-profile .dcp-sent { font-size: 11.5px; font-weight: 600; color: #1d8a4a; margin-top: 6px; }
+#view-demo .dcoach-contacted { font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 99px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; white-space: nowrap; background: #e3f6e9; color: #1d8a4a; align-self: center; }
+#view-demo .dcoach-signup-form { display: none; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; margin-top: 10px; }
+#view-demo .dcoach-signup-form.open { display: block; }
+#view-demo .dcsf-row { margin-bottom: 11px; }
+#view-demo .dcsf-row label { display: block; font-size: 11px; font-weight: 600; color: var(--muted); margin-bottom: 4px; font-family: 'Inter', sans-serif; }
+#view-demo .dcsf-row input, #view-demo .dcsf-row select { width: 100%; border: 1px solid var(--line); border-radius: 9px; padding: 10px 11px; font-size: 13px; font-family: 'Inter', sans-serif; background: #fff; color: var(--ink); box-sizing: border-box; }
+#view-demo .dcsf-actions { display: flex; gap: 8px; margin-top: 4px; }
+#view-demo .dcsf-actions .dbtn { flex: 1; }
+</style>
+
+<div id="view-demo" style="display:none;">
+  <div class="demo-topbar">
+    <div class="brand">🏅 Tri Life <span class="demo-tag">Demonstração</span></div>
+    <a class="back" href="#" onclick="showApp();return false;" style="font-weight:700;">Criar minha conta &rarr;</a>
+    <a class="back" href="#" onclick="showMarketing();return false;">&larr; Voltar ao site</a>
+  </div>
+  <div class="demo-banner">Isso é uma demonstração com um perfil fictício — nada aqui é salvo ou enviado pra ninguém.</div>
+  <div class="demo-tabs">
+    <button class="demo-tab" data-dsec="perfil" onclick="switchDemoSection('perfil')">👤 Perfil</button>
+    <button class="demo-tab" data-dsec="matches" onclick="switchDemoSection('matches')">✨ Matches</button>
+    <button class="demo-tab" data-dsec="mapa" onclick="switchDemoSection('mapa')">📍 Mapa</button>
+    <button class="demo-tab" data-dsec="amigos" onclick="switchDemoSection('amigos')">🤝 Amigos</button>
+    <button class="demo-tab" data-dsec="treinos" onclick="switchDemoSection('treinos')">📅 Treinos</button>
+    <button class="demo-tab" data-dsec="social" onclick="switchDemoSection('social')">💬 Social</button>
+  </div>
+  <div class="demo-main">
+
+    <!-- PERFIL -->
+    <div class="dsec" id="dsec-perfil">
+      <div class="dlevel-box">
+        <div class="dlv-badge">1</div>
+        <div style="flex:1;">
+          <div class="dlv-title">Nível 1 · Explorador(a)</div>
+          <div class="dlv-sub">140 / 200 XP até virar Criador(a)</div>
+          <div class="dlv-track"><div class="dlv-fill" style="width:70%;"></div></div>
+        </div>
+      </div>
+      <div class="dcard">
+        <div class="dprofile-head">
+          <div class="davatar">HV</div>
+          <div>
+            <h2>Henrique Volles</h2>
+            <div class="dsub">Blumenau, SC</div>
+            <div class="dbadge">Triatleta iniciante</div>
+          </div>
+        </div>
+        <div class="dbio">"Começando no triathlon — forte no pedal, ainda evoluindo na natação. Buscando gente pra treinar junto e trocar experiência."</div>
+        <div class="dbar-row"><div class="dlbl">🏊 Natação</div><div class="dbar-track"><div class="dbar-fill" style="width:20%;"></div></div><div class="dbar-val">1</div></div>
+        <div class="dbar-row"><div class="dlbl">🚴 Pedal</div><div class="dbar-track"><div class="dbar-fill" style="width:60%;"></div></div><div class="dbar-val">3</div></div>
+        <div class="dbar-row"><div class="dlbl">🏃 Corrida</div><div class="dbar-track"><div class="dbar-fill" style="width:40%;"></div></div><div class="dbar-val">2</div></div>
+        <div class="dcontact">
+          📧 henrique.volles@exemplo.com (demonstração)<br>
+          📍 Blumenau, SC · Disponível fins de semana e terças à noite
+        </div>
+        <div class="dnote">Edição de perfil desativada na demonstração.</div>
+      </div>
+      <div class="dcard">
+        <div class="dweek-summary" style="margin-bottom:0;">
+          <div class="dws"><div class="n">1</div><div class="l">prova confirmada</div></div>
+          <div class="dws"><div class="n">9</div><div class="l">treinos no mês</div></div>
+          <div class="dws"><div class="n">4</div><div class="l">parceiros de treino</div></div>
+        </div>
+      </div>
+      <div class="dcard">
+        <div class="dgroup-title" style="margin-top:0;">🎯 Minhas metas</div>
+        <div class="dgoal-item done"><div class="dgi">✓</div><span class="dgt">Completar meu primeiro treino em dupla</span></div>
+        <div class="dgoal-item pending"><div class="dgi">○</div><span class="dgt">Nadar 1km sem parar</span></div>
+        <div class="dgoal-item pending"><div class="dgi">○</div><span class="dgt">Participar da prova sprint de Blumenau em dezembro</span></div>
+        <div class="dnote">Metas fictícias, só de exemplo.</div>
+      </div>
+      <div class="dcard">
+        <div class="dgroup-title" style="margin-top:0;">🏅 Conquistas</div>
+        <div class="dach-grid">
+          <div class="dach-item"><div class="dai">🥇</div><div class="dal">Primeira dupla</div></div>
+          <div class="dach-item"><div class="dai">🔥</div><div class="dal">7 dias seguidos</div></div>
+          <div class="dach-item"><div class="dai">🚴</div><div class="dal">50km pedalados</div></div>
+          <div class="dach-item"><div class="dai">🏊</div><div class="dal">Evoluiu na natação</div></div>
+        </div>
+      </div>
+      <div class="dcard">
+        <div class="dgroup-title" style="margin-top:0;">🏁 Provas</div>
+        <div class="drace-item"><div class="dri2">🏁</div><div class="dra"><div class="drt">Sprint Blumenau</div><div class="drd">15/12/2026 · Confirmada</div></div></div>
+        <div class="drace-item"><div class="dri2">🏊</div><div class="dra"><div class="drt">Travessia do Rio Itajaí (5km natação)</div><div class="drd">Concluída em 10/09/2026 · Tempo 1h42</div></div></div>
+        <div class="drace-item"><div class="dri2">🏃</div><div class="dra"><div class="drt">Corrida de Rua de Gaspar (10km)</div><div class="drd">Concluída em 20/07/2026 · Tempo 58min</div></div></div>
+        <div class="dnote">Histórico fictício, só de exemplo.</div>
+      </div>
+      <div class="dcard">
+        <div class="dgroup-title" style="margin-top:0;">🎒 Equipamentos</div>
+        <div class="dgear-item"><div class="dgl">🚴 Bike</div><div class="dgv">Caloi Elite Carbon 2023</div></div>
+        <div class="dgear-item"><div class="dgl">👟 Tênis de corrida</div><div class="dgv">Asics Gel-Nimbus 25</div></div>
+        <div class="dgear-item"><div class="dgl">🥽 Óculos de natação</div><div class="dgv">Speedo Vanquisher 2.0</div></div>
+        <div class="dnote">Edição desativada na demonstração.</div>
+      </div>
+      <div class="dcard">
+        <div class="dgroup-title" style="margin-top:0;">💡 Recomendado pro seu nível</div>
+        <div class="drace-item"><div class="dri2">🏊</div><div class="dra"><div class="drt">Prancha de nado</div><div class="drd">Nível 1 em natação — ajuda a firmar a técnica antes de investir em nadadeiras</div></div></div>
+        <div class="drace-item"><div class="dri2">🚴</div><div class="dra"><div class="drt">Sapatilha com encaixe (clip)</div><div class="drd">Nível 3 em pedal — ganha eficiência de pedalada sem precisar trocar a bike</div></div></div>
+        <div class="drace-item"><div class="dri2">🏃</div><div class="dra"><div class="drt">Tênis com mais amortecimento</div><div class="drd">Nível 2 em corrida — segura o impacto enquanto você aumenta o volume de treino</div></div></div>
+        <div class="dnote">Recomendações fictícias com base no seu nível, só de exemplo.</div>
+      </div>
+      <div class="dcard">
+        <div class="dgroup-title" style="margin-top:0;">📈 Evolução (há 3 meses → agora)</div>
+        <div class="devo-row">
+          <div class="devo-head"><span class="devl">🏊 Natação</span><span class="devv">0 → 1</span></div>
+          <div class="devo-track"><div class="devo-before" style="width:0%;"></div><div class="devo-now" style="width:20%;"></div></div>
+        </div>
+        <div class="devo-row">
+          <div class="devo-head"><span class="devl">🚴 Pedal</span><span class="devv">2 → 3</span></div>
+          <div class="devo-track"><div class="devo-before" style="width:40%;"></div><div class="devo-now" style="width:60%;"></div></div>
+        </div>
+        <div class="devo-row">
+          <div class="devo-head"><span class="devl">🏃 Corrida</span><span class="devv">1 → 2</span></div>
+          <div class="devo-track"><div class="devo-before" style="width:20%;"></div><div class="devo-now" style="width:40%;"></div></div>
+        </div>
+        <div class="dnote">Comparação fictícia, só de exemplo.</div>
+      </div>
+    </div>
+
+    <!-- MATCHES -->
+    <div class="dsec" id="dsec-matches">
+      <div class="dsubtabs">
+        <button class="dsubtab active" data-msub="sugestoes" onclick="switchMatchSub('sugestoes')">Sugestões</button>
+        <button class="dsubtab" data-msub="pedidos" onclick="switchMatchSub('pedidos')">Pedidos <span id="pedidos-badge"></span></button>
+      </div>
+
+      <div class="dmsub active" id="msub-sugestoes">
+        <div class="dfilter-row">
+          <select id="match-filter-mod" onchange="renderMatches()">
+            <option value="all">Todas as modalidades</option>
+            <option value="swim">🏊 Natação</option>
+            <option value="bike">🚴 Pedal</option>
+            <option value="run">🏃 Corrida</option>
+          </select>
+          <select id="match-filter-lvl" onchange="renderMatches()">
+            <option value="0">Qualquer nível</option>
+            <option value="2">Nível 2+</option>
+            <option value="3">Nível 3+</option>
+            <option value="4">Nível 4+</option>
+            <option value="5">Nível 5</option>
+          </select>
+        </div>
+        <div class="dcard" id="matches-wrap"></div>
+        <div id="matches-empty">Nenhum match com esse filtro. Tenta outra combinação.</div>
+        <div class="dnote" style="text-align:center;">Compatibilidade calculada com base na modalidade mais fraca do seu perfil e na proximidade — exemplo fictício.</div>
+      </div>
+
+      <div class="dmsub" id="msub-pedidos">
+        <div class="dcard">
+          <div class="dgroup-title" style="margin-top:0;">📥 Você recebeu</div>
+          <div id="received-list"></div>
+        </div>
+        <div class="dcard">
+          <div class="dgroup-title" style="margin-top:0;">📤 Você enviou</div>
+          <div id="sent-list"></div>
+        </div>
+        <div class="dnote" style="text-align:center;">Pedidos fictícios, só de exemplo — os que você envia em Amigos também aparecem aqui.</div>
+      </div>
+    </div>
+
+    <!-- MAPA -->
+    <div class="dsec" id="dsec-mapa">
+      <div class="dcard">
+        <div class="dfilter-row" style="margin-bottom:12px;">
+          <select id="map-filter-km" onchange="renderDemoMap()">
+            <option value="99">Qualquer distância</option>
+            <option value="2">Até 2 km</option>
+            <option value="5">Até 5 km</option>
+            <option value="10">Até 10 km</option>
+          </select>
+        </div>
+        <div class="dgroup-title" style="margin-top:0;">📍 Pessoas perto de você</div>
+        <div class="dmap-wrap" id="demo-map">
+          <div class="dmap-you" style="left:50%; top:50%;"></div>
+          <div class="dmap-you-label" style="left:50%; top:50%;">Você</div>
+        </div>
+        <div class="dmap-legend">
+          <span><i style="background:var(--blue);"></i>Natação</span>
+          <span><i style="background:var(--navy);"></i>Pedal</span>
+          <span><i style="background:var(--gold);"></i>Corrida</span>
+        </div>
+        <div class="dmap-detail" id="map-detail"></div>
+      </div>
+      <div class="dcard">
+        <div class="dgroup-title" style="margin-top:0;">Ordenado por distância</div>
+        <div id="nearby-list"></div>
+        <div class="dnote">Localização fictícia — na versão real, usa a localização do seu celular.</div>
+      </div>
+    </div>
+
+    <!-- AMIGOS -->
+    <div class="dsec" id="dsec-amigos">
+      <div class="dcard">
+        <div class="dgroup-title">🏊 Natação — pra te ajudar a evoluir</div>
+        <div class="dfriend"><div class="davatar sm">CR</div><div class="dfi"><div class="dfn">Camila Rezende</div><div class="dfc">Blumenau/SC</div><div class="dflast">Último treino: Natação técnica, há 2 dias</div></div><div class="dflvl">Nv 5</div><button class="dbtn" onclick="sendInvite(this, 'Camila Rezende', 'swim')">Treinar junto</button></div>
+        <div class="dfriend"><div class="davatar sm">DH</div><div class="dfi"><div class="dfn">Diego Hoffmann</div><div class="dfc">Gaspar/SC</div><div class="dflast">Último treino: Natação longa, há 4 dias</div></div><div class="dflvl">Nv 4</div><button class="dbtn" onclick="sendInvite(this, 'Diego Hoffmann', 'swim')">Treinar junto</button></div>
+
+        <div class="dgroup-title">🚴 Pedal — no seu nível</div>
+        <div class="dfriend"><div class="davatar sm">RT</div><div class="dfi"><div class="dfn">Rafael Tramontin</div><div class="dfc">Blumenau/SC</div><div class="dflast">Último treino: Pedal em grupo, há 1 dia</div></div><div class="dflvl">Nv 3</div><button class="dbtn" onclick="sendInvite(this, 'Rafael Tramontin', 'bike')">Treinar junto</button></div>
+        <div class="dfriend"><div class="davatar sm">BZ</div><div class="dfi"><div class="dfn">Bruna Zimmermann</div><div class="dfc">Indaial/SC</div><div class="dflast">Último treino: Pedal solo, há 3 dias</div></div><div class="dflvl">Nv 4</div><button class="dbtn" onclick="sendInvite(this, 'Bruna Zimmermann', 'bike')">Treinar junto</button></div>
+
+        <div class="dgroup-title">🏃 Corrida — pra te ajudar a evoluir</div>
+        <div class="dfriend"><div class="davatar sm">TV</div><div class="dfi"><div class="dfn">Thiago Vieira</div><div class="dfc">Blumenau/SC</div><div class="dflast">Último treino: Corrida intervalada, há 2 dias</div></div><div class="dflvl">Nv 4</div><button class="dbtn" onclick="sendInvite(this, 'Thiago Vieira', 'run')">Treinar junto</button></div>
+        <div class="dfriend"><div class="davatar sm">LK</div><div class="dfi"><div class="dfn">Larissa Konzen</div><div class="dfc">Gaspar/SC</div><div class="dflast">Último treino: Corrida longa, há 5 dias</div></div><div class="dflvl">Nv 3</div><button class="dbtn" onclick="sendInvite(this, 'Larissa Konzen', 'run')">Treinar junto</button></div>
+        <div class="dnote">Lista fictícia, só pra mostrar como funciona o pareamento por modalidade e nível.</div>
+      </div>
+    </div>
+
+    <!-- TREINOS -->
+    <div class="dsec" id="dsec-treinos">
+      <div class="dsubtabs">
+        <button class="dsubtab active" data-tsub="semana" onclick="switchTreinoSub('semana')">📅 Semana</button>
+        <button class="dsubtab" data-tsub="stats" onclick="switchTreinoSub('stats')">📊 Estatísticas</button>
+      </div>
+
+      <div class="dmsub active" id="tsub-semana">
+      <div class="dweek-summary">
+        <div class="dws"><div class="n">3</div><div class="l">treinos feitos</div></div>
+        <div class="dws"><div class="n">2</div><div class="l">a fazer</div></div>
+        <div class="dws"><div class="n">4h40</div><div class="l">tempo na semana</div></div>
+      </div>
+      <div class="dcard">
+        <div class="dgroup-title" style="margin-top:0;">📅 Esta semana</div>
+
+        <div class="dtrain"><div class="dday">SEG</div><div class="dti"><div class="dtn">🏊 Natação técnica</div><div class="dtd">Com Camila Rezende · 45min</div></div><div class="dstatus done">Feito</div></div>
+        <button class="dtrain-toggle" onclick="toggleTrain('t1')">Ver detalhes ▾</button>
+        <div class="dtrain-detail" id="t1"><b>Séries:</b> 6x100m nado livre · <b>Descanso:</b> 20s entre séries<br><b>Ritmo alvo:</b> 2:05 / 100m<br><b>Obs:</b> focar na respiração bilateral.</div>
+
+        <div class="dtrain"><div class="dday">TER</div><div class="dti"><div class="dtn">🏃 Corrida leve</div><div class="dtd">Treino solo · 30min</div></div><div class="dstatus done">Feito</div></div>
+        <button class="dtrain-toggle" onclick="toggleTrain('t2')">Ver detalhes ▾</button>
+        <div class="dtrain-detail" id="t2"><b>Distância:</b> 5km contínuo · <b>Ritmo alvo:</b> 6:30/km<br><b>Obs:</b> manter ritmo de conversa, sem forçar.</div>
+
+        <div class="dtrain"><div class="dday">QUA</div><div class="dti"><div class="dtn">🚴 Pedal em grupo</div><div class="dtd">Com Rafael Tramontin · 1h20</div></div><div class="dstatus done">Feito</div></div>
+        <button class="dtrain-toggle" onclick="toggleTrain('t3')">Ver detalhes ▾</button>
+        <div class="dtrain-detail" id="t3"><b>Distância:</b> 40km · <b>Ritmo:</b> moderado (zona 2)<br><b>Pausas:</b> 5min a cada 15km<br><b>Obs:</b> revezar na frente do grupo.</div>
+
+        <div class="dtrain"><div class="dday">QUI</div><div class="dti"><div class="dtn">Descanso</div><div class="dtd">Dia de recuperação</div></div><div class="dstatus pending">—</div></div>
+        <button class="dtrain-toggle" onclick="toggleTrain('t4')">Ver detalhes ▾</button>
+        <div class="dtrain-detail" id="t4"><b>Atividade:</b> alongamento leve, 15min<br><b>Obs:</b> priorizar hidratação e sono.</div>
+
+        <div class="dtrain"><div class="dday">SEX</div><div class="dti"><div class="dtn">🏊 Natação técnica</div><div class="dtd">Com Diego Hoffmann · 45min</div></div><div class="dstatus pending">A fazer</div></div>
+        <button class="dtrain-toggle" onclick="toggleTrain('t5')">Ver detalhes ▾</button>
+        <div class="dtrain-detail" id="t5"><b>Séries:</b> 8x50m nado livre · <b>Descanso:</b> 15s entre séries<br><b>Foco:</b> técnica de virada.</div>
+
+        <div class="dtrain"><div class="dday">SÁB</div><div class="dti"><div class="dtn">🚴 Pedal longo</div><div class="dtd">Treino solo · 2h</div></div><div class="dstatus pending">A fazer</div></div>
+        <button class="dtrain-toggle" onclick="toggleTrain('t6')">Ver detalhes ▾</button>
+        <div class="dtrain-detail" id="t6"><b>Distância:</b> 70km · <b>Ritmo:</b> zona 2<br><b>Pausas:</b> 2 paradas de 10min.</div>
+
+        <div class="dtrain"><div class="dday">DOM</div><div class="dti"><div class="dtn">🏃 Corrida em grupo</div><div class="dtd">Com Thiago Vieira · 50min</div></div><div class="dstatus pending">A fazer</div></div>
+        <button class="dtrain-toggle" onclick="toggleTrain('t7')">Ver detalhes ▾</button>
+        <div class="dtrain-detail" id="t7"><b>Distância:</b> 8km · <b>Ritmo alvo:</b> 6:00/km<br><b>Descanso:</b> contínuo, sem paradas.</div>
+
+        <div class="dnote">Calendário fictício, só de exemplo.</div>
+      </div>
+      </div>
+
+      <div class="dmsub" id="tsub-stats">
+        <div class="dcard">
+          <div class="dgroup-title" style="margin-top:0;">✅ Essa semana</div>
+          <div class="devo-row">
+            <div class="devo-head"><span class="devl">Treinos concluídos</span><span class="devv">3 de 5 (60%)</span></div>
+            <div class="devo-track"><div class="devo-now" style="width:60%;"></div></div>
+          </div>
+        </div>
+        <div class="dcard">
+          <div class="dgroup-title" style="margin-top:0;">📊 Esse mês por modalidade</div>
+          <div class="devo-row">
+            <div class="devo-head"><span class="devl">🏊 Natação</span><span class="devv">4 treinos · 3h00</span></div>
+            <div class="devo-track"><div class="devo-now" style="width:35%;"></div></div>
+          </div>
+          <div class="devo-row">
+            <div class="devo-head"><span class="devl">🚴 Pedal</span><span class="devv">5 treinos · 6h40</span></div>
+            <div class="devo-track"><div class="devo-now" style="width:75%;"></div></div>
+          </div>
+          <div class="devo-row">
+            <div class="devo-head"><span class="devl">🏃 Corrida</span><span class="devv">6 treinos · 4h10</span></div>
+            <div class="devo-track"><div class="devo-now" style="width:50%;"></div></div>
+          </div>
+          <div class="dnote">Barras representam o volume relativo entre modalidades.</div>
+        </div>
+        <div class="dcard">
+          <div class="dgroup-title" style="margin-top:0;">🗓️ Histórico recente</div>
+          <div class="dtrain"><div class="dday">22/10</div><div class="dti"><div class="dtn">🏊 Natação técnica</div><div class="dtd">45min</div></div><div class="dstatus done">Feito</div></div>
+          <div class="dtrain"><div class="dday">21/10</div><div class="dti"><div class="dtn">🏃 Corrida leve</div><div class="dtd">30min</div></div><div class="dstatus done">Feito</div></div>
+          <div class="dtrain"><div class="dday">20/10</div><div class="dti"><div class="dtn">🚴 Pedal longo</div><div class="dtd">2h</div></div><div class="dstatus done">Feito</div></div>
+          <div class="dtrain"><div class="dday">18/10</div><div class="dti"><div class="dtn">🏊 Natação técnica</div><div class="dtd">45min</div></div><div class="dstatus missed">Não feito</div></div>
+          <div class="dnote">Histórico fictício, só de exemplo.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOCIAL -->
+    <div class="dsec" id="dsec-social">
+      <div class="dsubtabs">
+        <button class="dsubtab active" data-ssub="feed" onclick="switchSocialSub('feed')">Feed</button>
+        <button class="dsubtab" data-ssub="treinadores" onclick="switchSocialSub('treinadores')">👨‍🏫 Treinadores</button>
+      </div>
+
+      <div class="dmsub active" id="ssub-feed">
+        <div class="dsearch"><input type="text" id="feed-search" placeholder="Buscar pessoas por nome ou cidade" oninput="renderFeed()" onkeydown="if(event.key==='Enter'){event.preventDefault();}"><button class="dbtn gold" onclick="renderFeed()">Buscar</button></div>
+        <div class="dcard">
+          <div class="dcomposer">
+            <div class="davatar sm">HV</div>
+            <textarea placeholder="No que você está pensando, Henrique? (postagem desativada na demonstração)" disabled></textarea>
+          </div>
+        </div>
+        <div id="feed-wrap"></div>
+        <div class="dnote" style="text-align:center;">Feed fictício, só de exemplo.</div>
+      </div>
+
+      <div class="dmsub" id="ssub-treinadores">
+        <div class="dfilter-row">
+          <select id="coach-filter-mod" onchange="renderCoaches()">
+            <option value="all">Todas as modalidades</option>
+            <option value="swim">🏊 Natação</option>
+            <option value="bike">🚴 Pedal</option>
+            <option value="run">🏃 Corrida</option>
+            <option value="tri">🏅 Triathlon (geral)</option>
+          </select>
+        </div>
+        <div class="dcard" id="coaches-wrap"></div>
+        <div class="dcoach-cta" id="coach-signup-cta">
+          <div class="dcct">É treinador(a)?</div>
+          <div class="dccs">Cadastre-se no Tri Life e encontre atletas pra orientar nas suas modalidades.</div>
+          <button class="dbtn gold" id="coach-signup-btn" onclick="toggleCoachSignup()">Quero ser treinador</button>
+        </div>
+        <div class="dcoach-signup-form" id="coach-signup-form">
+          <div class="dcsf-row"><label>Nome completo</label><input type="text" id="csf-name" placeholder="Ex: Prof. Juliana Matos"></div>
+          <div class="dcsf-row"><label>Modalidade principal</label>
+            <select id="csf-mod">
+              <option value="swim">🏊 Natação</option>
+              <option value="bike">🚴 Pedal</option>
+              <option value="run">🏃 Corrida</option>
+              <option value="tri">🏅 Triathlon (geral)</option>
+            </select>
+          </div>
+          <div class="dcsf-row"><label>Cidade</label><input type="text" id="csf-city" placeholder="Ex: Blumenau/SC" value="Blumenau/SC"></div>
+          <div class="dcsf-row"><label>Especialidade (uma frase curta)</label><input type="text" id="csf-spec" placeholder="Ex: Preparação para provas sprint"></div>
+          <div class="dcsf-row"><label>Valores</label><input type="text" id="csf-price" placeholder="Ex: R$ 80 a aula avulsa"></div>
+          <div class="dcsf-row"><label>Horários e local</label><input type="text" id="csf-sched" placeholder="Ex: Terças e quintas, 7h · Blumenau"></div>
+          <div class="dcsf-actions">
+            <button class="dbtn" onclick="toggleCoachSignup()">Cancelar</button>
+            <button class="dbtn gold" onclick="submitCoachSignup()">Enviar cadastro</button>
+          </div>
+          <div class="dnote" id="csf-msg" style="display:none;"></div>
+        </div>
+        <div class="dnote" style="text-align:center;">Lista fictícia, só pra mostrar como funciona a busca por treinadores.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="view-app" style="display:none;">
+
+
+<div class="back-bar"><a href="#" onclick="showMarketing();return false;">&larr; Voltar ao site</a></div>
+
+<div id="signed-out" style="display:none; max-width:380px; margin:40px auto; padding:0 20px;">
+  <div class="card">
+    <h2 id="login-title">Entrar no Tri Life</h2>
+    <p class="sub" id="login-sub">Sem senha — a gente manda um link de acesso pro seu e-mail.</p>
+    <form id="login-form">
+      <div class="field"><label id="login-field-label">Seu e-mail</label><input type="email" id="login-email" required placeholder="seu@email.com"></div>
+      <button type="submit" class="btn gold block" id="login-submit">Enviar link de acesso</button>
+      <div class="msg" id="login-msg"></div>
+    </form>
+  </div>
+</div>
+
+<div id="loading"><div class="state-msg" id="loading-msg">Carregando seu perfil…</div></div>
+
+<!-- ONBOARDING -->
+<div id="onboarding" style="display:none; max-width:500px; margin:30px auto; padding: 0 20px;">
+  <div class="card">
+    <h2>Vamos montar seu perfil</h2>
+    <p class="sub">Seu nível em cada modalidade é o que faz o matching funcionar de verdade — seja honesto, não tem prova, só treino em dupla melhor.</p>
+    <form id="onb-form">
+      <div class="field"><label>Como te chamam</label><input type="text" id="onb-name" required maxlength="40" placeholder="Seu nome ou apelido"></div>
+      <div class="field"><label>Cidade</label><input type="text" id="onb-city" required maxlength="40" placeholder="Ex: Blumenau/SC"></div>
+      <div class="field"><label>Uma frase sobre você (opcional)</label><input type="text" id="onb-bio" maxlength="80" placeholder="Ex: Trocando corrida por pedal há 2 anos"></div>
+      <div class="field">
+        <label>Nível por modalidade (1 = iniciante, 5 = avançado)</label>
+        <div class="levels-row">
+          <div><label style="font-size:10.5px;">🏊 Natação</label><select id="onb-swim"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></div>
+          <div><label style="font-size:10.5px;">🚴 Pedal</label><select id="onb-bike"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></div>
+          <div><label style="font-size:10.5px;">🏃 Corrida</label><select id="onb-run"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></div>
+        </div>
+      </div>
+      <div class="field"><label>Disponibilidade de treino</label><input type="text" id="onb-avail" maxlength="60" placeholder="Ex: manhãs de terça e sábado"></div>
+      <button type="submit" class="btn gold block" id="onb-submit">Criar meu perfil</button>
+      <div class="msg" id="onb-msg"></div>
+    </form>
+  </div>
+</div>
+
+<!-- APP SHELL -->
+<div id="app-shell" style="display:none;">
+  <div class="app-top">
+    <div class="brand"><div class="word">Tri Life</div><span class="tag" id="mode-tag">SUA CONTA</span></div>
+    <div class="who" id="who-box">conectado</div>
+  </div>
+  <div id="local-mode-banner" style="display:none; background:#fbf1ea; color:#8a4a1f; font-size:11px; text-align:center; padding:8px 16px; border-bottom:1px solid #f0d8c0;">
+    Modo demonstração — seus dados ficam só neste navegador, não aparecem pra outras pessoas ainda. Configure o Supabase (veja o guia) pra matching de verdade entre amigos.
+  </div>
+
+  <div class="app-shell">
+    <aside class="app-sb">
+      <div class="asn active" data-sec="inicio">🏠 Início</div>
+      <div class="asn" data-sec="perfil">👤 Perfil</div>
+      <div class="asn" data-sec="sugestoes">🤝 Sugestões</div>
+      <div class="asn" data-sec="pedidos">📥 Pedidos</div>
+      <div class="asn" data-sec="mapa">🗺️ Mapa</div>
+      <div class="asn" data-sec="clubes">🏟️ Clubes</div>
+      <div class="asn" data-sec="historico">📅 Histórico</div>
+      <div class="asn" data-sec="recuperacao">💧 Recuperação</div>
+      <div class="asn" data-sec="coach">💬 Coach</div>
+    </aside>
+
+    <main class="app-mn">
+
+      <!-- INICIO -->
+      <section class="asec active" id="sec-inicio">
+        <div class="card">
+          <h2 id="home-greet">Olá 👋</h2>
+          <p class="sub" id="home-sub">Seu painel está pronto.</p>
+          <div class="mini-stat-row">
+            <div class="mini-stat"><div class="n" id="st-matches">0</div><div class="l">SUGESTÕES</div></div>
+            <div class="mini-stat"><div class="n" id="st-pending">0</div><div class="l">PEDIDOS</div></div>
+            <div class="mini-stat"><div class="n" id="st-confirmed">0</div><div class="l">TREINOS</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h2 style="font-size:13px;">Ir para</h2>
+          <div class="quick-nav">
+            <div data-sec="perfil">👤 Meu perfil</div>
+            <div data-sec="mapa">🗺️ Mapa de atletas</div>
+            <div data-sec="clubes">🏟️ Clubes parceiros</div>
+            <div data-sec="coach">💬 Falar com o Coach</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PERFIL -->
+      <section class="asec" id="sec-perfil">
+        <div class="card" style="max-width:360px; margin:0 auto 16px;">
+          <div class="avatar-wrap">
+            <div class="avatar-big" id="profile-avatar">—</div>
+          </div>
+          <div class="profile-view-name" id="pv-name">—</div>
+          <div class="profile-view-city" id="pv-city">—</div>
+          <div class="profile-bio" id="pv-bio"></div>
+          <div id="pv-bars"></div>
+          <button class="btn ghost block" id="edit-profile-btn" type="button" style="margin-top:10px;">Editar perfil</button>
+        </div>
+      </section>
+
+      <!-- SUGESTOES -->
+      <section class="asec" id="sec-sugestoes">
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <h2 style="margin:0;">Parceiros sugeridos</h2>
+            <button class="btn ghost small" id="refresh-matches">Atualizar</button>
+          </div>
+          <p class="sub">Baseado em quem pode te ajudar na sua modalidade mais fraca — e em quem você pode ajudar na dele.</p>
+          <div id="matches-list"><div class="empty">Carregando…</div></div>
+        </div>
+      </section>
+
+      <!-- PEDIDOS -->
+      <section class="asec" id="sec-pedidos">
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <h2 style="margin:0;">Pedidos de treino recebidos</h2>
+            <button class="btn ghost small" id="refresh-incoming">Atualizar</button>
+          </div>
+          <div id="incoming-list"><div class="empty">Carregando…</div></div>
+        </div>
+      </section>
+
+      <!-- MAPA -->
+      <section class="asec" id="sec-mapa">
+        <div class="card">
+          <h2>Mapa de atletas</h2>
+          <div class="map-note">Posições ilustrativas (não é geolocalização real) — só pra visualizar quem está por perto.</div>
+          <div class="legend">
+            <span><i style="background:#1E88E5;"></i> Forte em pedal</span>
+            <span><i style="background:#D4AF37;"></i> Forte em corrida</span>
+            <span><i style="background:#7FD4FF;"></i> Forte em natação</span>
+          </div>
+          <div class="map-box" id="map-box"></div>
+          <div id="map-popover"></div>
+        </div>
+      </section>
+
+      <!-- CLUBES -->
+      <section class="asec" id="sec-clubes">
+        <div class="card">
+          <h2>Clubes parceiros</h2>
+          <p class="sub">Candidate-se a um clube pra treinar em grupo e ter acompanhamento mais próximo.</p>
+          <div id="clubs-list"><div class="empty">Carregando…</div></div>
+        </div>
+      </section>
+
+      <!-- HISTORICO -->
+      <section class="asec" id="sec-historico">
+        <div class="card">
+          <h2>Registrar treino</h2>
+          <form id="hist-form">
+            <div class="field"><label>Data</label><input type="date" id="hist-date" required></div>
+            <div class="field"><label>Modalidade</label><select id="hist-modality"><option value="swim">🏊 Natação</option><option value="bike">🚴 Pedal</option><option value="run">🏃 Corrida</option></select></div>
+            <div class="field"><label>Parceiro (opcional)</label><input type="text" id="hist-partner" maxlength="40" placeholder="Nome do parceiro de treino"></div>
+            <div class="field"><label>Observações</label><input type="text" id="hist-notes" maxlength="80" placeholder="Como foi o treino?"></div>
+            <button type="submit" class="btn gold block">Registrar treino</button>
+            <div class="msg" id="hist-msg"></div>
+          </form>
+        </div>
+        <div class="card">
+          <h2>Seu histórico</h2>
+          <div id="history-list"><div class="empty">Carregando…</div></div>
+        </div>
+      </section>
+
+      <!-- RECUPERACAO -->
+      <section class="asec" id="sec-recuperacao">
+        <div class="card">
+          <h2>Check-in de hoje</h2>
+          <p class="sub">Isso não substitui orientação de um profissional de saúde ou educação física — é só um diário pessoal.</p>
+          <div class="rec-row"><label>Energia</label><input type="range" min="1" max="5" value="3" id="rec-energy"><span class="rv" id="rec-energy-v">3</span></div>
+          <div class="rec-row"><label>Dor muscular</label><input type="range" min="1" max="5" value="2" id="rec-soreness"><span class="rv" id="rec-soreness-v">2</span></div>
+          <div class="toggle-row"><span style="font-size:12px; font-weight:600;">Hoje é dia de descanso</span><div class="toggle" id="rec-rest"></div></div>
+          <button class="btn gold block" id="rec-save">Salvar check-in</button>
+          <div class="msg" id="rec-msg"></div>
+        </div>
+        <div class="card">
+          <h2 style="font-size:13px;">Últimos check-ins</h2>
+          <div id="rec-log"><div class="empty">Carregando…</div></div>
+        </div>
+        <div class="card">
+          <h2 style="font-size:13px;">Dicas gerais de recuperação</h2>
+          <div class="tip-item">💧 Hidrate-se bem ao longo do dia, não só durante o treino.</div>
+          <div class="tip-item">😴 Priorize o sono — é quando boa parte da adaptação ao treino acontece.</div>
+          <div class="tip-item">🧘 Alterne treinos puxados com dias mais leves ou de descanso ativo.</div>
+          <div class="tip-item">🩹 Dor que persiste ou piora merece avaliação de um profissional, não só descanso.</div>
+        </div>
+      </section>
+
+      <!-- COACH -->
+      <section class="asec" id="sec-coach">
+        <div class="card">
+          <h2>Coach Tri Life</h2>
+          <p class="sub">Converse sobre seu treino — dicas práticas, não orientação médica.</p>
+          <div id="coach-unavailable" style="display:none;" class="empty">O Coach não está disponível nesta sessão.</div>
+          <div id="coach-area">
+            <div class="chat-box" id="chat-box"></div>
+            <div class="chat-input-row">
+              <input type="text" id="chat-input" placeholder="Pergunte algo sobre seu treino...">
+              <button class="btn gold" id="chat-send">Enviar</button>
+            </div>
+            <div class="coach-note">As respostas são sugestões gerais — não substituem orientação de um treinador ou profissional de saúde.</div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+
+</div>
+
+<div id="fatal-error-banner" style="display:none; position:fixed; top:0; left:0; right:0; z-index:9999; background:#C0522F; color:#fff; padding:14px 20px; font-family:Arial,sans-serif; font-size:13px; line-height:1.5;"></div>
+<script>
+function showFatalError(msg) {
+  var b = document.getElementById('fatal-error-banner');
+  if (b) { b.style.display = 'block'; b.textContent = msg; }
+  else { alert(msg); }
+}
+
+window.addEventListener('error', function (e) {
+  /* Scripts de terceiros (CDN da fonte, do QR code) às vezes falham por causa
+     da rede ou de bloqueadores do navegador, e o navegador reporta isso só
+     como "Script error." genérico, sem linha nem detalhe — não é um bug do
+     Tri Life e não afeta a demonstração (ela não depende desses scripts).
+     Ignorar esse caso evita mostrar um aviso de erro falso toda vez. */
+  var isOpaqueThirdPartyError = e.message === 'Script error.' && !e.lineno && !e.filename;
+  if (isOpaqueThirdPartyError) { console.warn('Erro opaco de script externo ignorado (não afeta a demonstração).'); return; }
+  showFatalError('Erro no site: ' + (e.message || 'erro desconhecido') + ' (linha ' + (e.lineno || '?') + '). Tire um print disso e manda pro suporte.');
+});
+
+/* Erros dentro de async/await (ex: init, loadProfile) não disparam o evento
+   'error' acima — disparam 'unhandledrejection'. Sem isso, uma falha nessas
+   funções deixava a tela travada em "Carregando..." pra sempre, sem aviso. */
+window.addEventListener('unhandledrejection', function (e) {
+  console.error(e.reason);
+  show('loading', false);
+  showLoadingTimeoutError();
+  showFatalError('Erro ao carregar: ' + ((e.reason && e.reason.message) || String(e.reason) || 'erro desconhecido') + '. Tire um print disso e manda pro suporte.');
+});
+
+/* Rede de segurança: se depois de alguns segundos a tela ainda estiver
+   em "Carregando seu perfil...", algo travou silenciosamente (sem lançar
+   erro). Mostra uma mensagem com botão de tentar de novo em vez de deixar
+   girando pra sempre. */
+function showLoadingTimeoutError() {
+  var loadingEl = document.getElementById('loading');
+  if (!loadingEl) return;
+  loadingEl.innerHTML = '<div class="state-msg">Não consegui carregar seu perfil.<br><button type="button" class="btn gold" onclick="location.reload()" style="margin-top:14px;">Tentar de novo</button></div>';
+}
+function resetLoadingMsg() {
+  var loadingEl = document.getElementById('loading');
+  if (!loadingEl) return;
+  loadingEl.innerHTML = '<div class="state-msg" id="loading-msg">Carregando seu perfil…</div>';
+}
+let loadingWatchdog = null;
+function armLoadingWatchdog() {
+  clearTimeout(loadingWatchdog);
+  loadingWatchdog = setTimeout(function () {
+    var loadingEl = document.getElementById('loading');
+    if (loadingEl && loadingEl.style.display !== 'none') { showLoadingTimeoutError(); }
+  }, 7000);
+}
+
+let appInited = false;
+function showApp() {
+  try {
+    document.getElementById('view-marketing').style.display = 'none';
+    document.getElementById('view-app').style.display = '';
+    window.scrollTo(0,0);
+    armLoadingWatchdog();
+    if (!appInited) { appInited = true; init(); }
+  } catch (err) {
+    console.error(err);
+    showFatalError('Erro ao abrir o app: ' + err.message + '. Tire um print disso e manda pro suporte.');
+  }
+}
+function showMarketing() {
+  document.getElementById('view-app').style.display = 'none';
+  document.getElementById('view-demo').style.display = 'none';
+  document.getElementById('view-marketing').style.display = '';
+  window.scrollTo(0,0);
+}
+
+/* Demonstração estática: sem login, sem conta, sem dados salvos — abre
+   direto num perfil fictício. Não depende de rede nem de armazenamento,
+   então não tem como travar. */
+function showDemo() {
+  document.getElementById('view-marketing').style.display = 'none';
+  document.getElementById('view-app').style.display = 'none';
+  document.getElementById('view-demo').style.display = '';
+  window.scrollTo(0,0);
+  switchDemoSection('perfil');
+}
+function switchDemoSection(name) {
+  document.querySelectorAll('#view-demo .demo-tab').forEach(t => t.classList.toggle('active', t.dataset.dsec === name));
+  document.querySelectorAll('#view-demo .dsec').forEach(s => s.classList.toggle('active', s.id === 'dsec-' + name));
+  if (name === 'matches' && !window.__matchesRendered) { renderMatches(); renderPedidos(); window.__matchesRendered = true; }
+  if (name === 'mapa' && !window.__mapRendered) { renderDemoMap(); window.__mapRendered = true; }
+  if (name === 'social' && !window.__feedRendered) { renderFeed(); window.__feedRendered = true; }
+}
+function switchMatchSub(name) {
+  document.querySelectorAll('#view-demo .dsubtab[data-msub]').forEach(t => t.classList.toggle('active', t.dataset.msub === name));
+  document.querySelectorAll('#view-demo #dsec-matches .dmsub').forEach(s => s.classList.toggle('active', s.id === 'msub-' + name));
+}
+function switchSocialSub(name) {
+  document.querySelectorAll('#view-demo .dsubtab[data-ssub]').forEach(t => t.classList.toggle('active', t.dataset.ssub === name));
+  document.querySelectorAll('#view-demo #dsec-social .dmsub').forEach(s => s.classList.toggle('active', s.id === 'ssub-' + name));
+  if (name === 'treinadores' && !window.__coachesRendered) { renderCoaches(); window.__coachesRendered = true; }
+  if (name === 'feed' && !window.__feedRendered) { renderFeed(); window.__feedRendered = true; }
+}
+
+/* ---- dados fictícios do feed social (demonstração) ---- */
+const demoFeedPosts = [
+  { name: "Camila Rezende", init: "CR", city: "Blumenau/SC", time: "há 2 dias",
+    text: "Dica pra quem tá travado na natação: foca na respiração bilateral antes de pensar em velocidade. Fez toda diferença no meu início! 🏊",
+    likes: 14, comments: 3, myComment: "Vou treinar isso amanhã, valeu!" },
+  { name: "Rafael Tramontin", init: "RT", city: "Blumenau/SC", time: "há 3 dias",
+    text: "Rolê de pedal saindo do centro até o Parque Vila Germânica nesse sábado, 7h. Quem topa? 🚴",
+    likes: 9, comments: 5 },
+  { name: "Thiago Vieira", init: "TV", city: "Blumenau/SC", time: "há 5 dias",
+    text: "Bati meu recorde pessoal nos 10km hoje! Treinar em grupo fez toda a diferença no ritmo. 🏃‍♂️",
+    likes: 22, comments: 6 },
+];
+function renderFeed() {
+  const q = (el('feed-search').value || "").trim().toLowerCase();
+  const list = !q ? demoFeedPosts : demoFeedPosts.filter(p =>
+    p.name.toLowerCase().includes(q) || p.city.toLowerCase().includes(q));
+  const wrap = el('feed-wrap');
+  wrap.innerHTML = list.length ? list.map(p => `
+    <div class="dcard dpost">
+      <div class="davatar sm">${p.init}</div>
+      <div class="dpi">
+        <div class="dpn">${p.name}</div>
+        <div class="dpm">${p.city} · ${p.time}</div>
+        <div class="dpt">${p.text}</div>
+        <div class="dpa"><span>❤️ ${p.likes}</span><span>💬 ${p.comments}</span></div>
+        ${p.myComment ? `<div class="dpcomment"><b>Henrique Volles:</b> ${p.myComment}</div>` : ``}
+      </div>
+    </div>`).join("") : `<div class="dnote" style="text-align:center;">Ninguém encontrado com "${escapeHtml(q)}" (busca na demonstração, só entre os 3 posts fictícios acima).</div>`;
+}
+
+/* ---- dados fictícios de treinadores (demonstração) ---- */
+const demoCoaches = [
+  { name: "Prof. Marcela Dutra", init: "MD", mod: "swim", city: "Blumenau/SC", specialty: "Especialista em técnica para iniciantes", stars: "★★★★★ 4,9",
+    bio: "Formada em Educação Física, 8 anos treinando nadadores iniciantes e atletas de triathlon. Foco em técnica e respiração antes de volume.",
+    price: "R$ 80 a aula avulsa · pacote mensal sob consulta",
+    sched: "Terças e quintas, 7h às 9h · Piscina Municipal de Blumenau" },
+  { name: "Prof. André Kuhn", init: "AK", mod: "bike", city: "Blumenau/SC", specialty: "Treinos de potência e prova de estrada", stars: "★★★★★ 4,8",
+    bio: "Ex-ciclista competitivo, hoje monta planilhas de potência pra quem quer evoluir no pedal sem se machucar.",
+    price: "R$ 90 a aula avulsa · planilha mensal R$ 150",
+    sched: "Segundas, quartas e sábados de manhã · Trilha da Rua Altamir / Vorstadt" },
+  { name: "Prof. Sabrina Lopes", init: "SL", mod: "run", city: "Gaspar/SC", specialty: "Preparação para provas de 5 a 21km", stars: "★★★★★ 5,0",
+    bio: "Treinadora de corrida há 6 anos, especialista em levar corredor de 5km até a meia-maratona sem lesão.",
+    price: "R$ 70 a aula avulsa · pacote de 8 aulas R$ 480",
+    sched: "Terças, quintas e domingos de manhã · Orla de Gaspar" },
+  { name: "Prof. Rodrigo Bittencourt", init: "RB", mod: "tri", city: "Blumenau/SC", specialty: "Montagem de plano completo pra prova", stars: "★★★★☆ 4,7",
+    bio: "Triatleta amador há 12 anos, hoje treina atletas pra provas sprint e olímpico com plano integrado das três modalidades.",
+    price: "R$ 150 a avaliação inicial · acompanhamento mensal R$ 350",
+    sched: "Agenda flexível, confirma por mensagem · Blumenau e região" },
+];
+let coachContactedSet = new Set();
+let expandedCoachProfile = null;
+function renderCoaches() {
+  const modF = el("coach-filter-mod").value;
+  const list = demoCoaches.filter(c => modF === "all" || c.mod === modF);
+  const wrap = el("coaches-wrap");
+  wrap.innerHTML = list.length ? list.map((c, i) => {
+    const open = expandedCoachProfile === c.name;
+    const contacted = coachContactedSet.has(c.name);
+    const firstName = c.name.split(" ")[1] || c.name.split(" ")[0];
+    return `
+    <div class="dcoach-item-wrap" style="${i > 0 ? 'border-top:1px solid var(--line);padding-top:12px;' : ''}">
+      <div class="dcoach-item" style="border-bottom:none;padding-bottom:0;">
+        <div class="davatar sm">${c.init}</div>
+        <div class="dci"><div class="dcn">${c.name}</div><div class="dcm">${DEMO_MOD_LABELS[c.mod] || '🏅 Triathlon (geral)'} · ${c.city}</div><div class="dcc">${c.specialty}</div><div class="dcstars">${c.stars}</div></div>
+        <div class="dcoach-actions">
+          <button class="dbtn" onclick="toggleCoachProfile('${c.name}')">${open ? 'Fechar' : 'Ver perfil'}</button>
+          ${contacted ? `<span class="dcoach-contacted">Contatado</span>` : `<button class="dbtn gold" onclick="contactCoach('${c.name}')">Contatar</button>`}
+        </div>
+      </div>
+      <div class="dcoach-profile ${open ? 'open' : ''}">
+        <div class="dcp-bio">"${c.bio}"</div>
+        <div class="dcp-row"><b>Valores:</b> ${c.price}</div>
+        <div class="dcp-row"><b>Horários:</b> ${c.sched}</div>
+        ${contacted
+          ? `<div class="dcp-sent">✓ Mensagem enviada — ${firstName} costuma responder em até 1 dia (demonstração).</div>`
+          : `<button class="dbtn gold" style="margin-top:2px;" onclick="contactCoach('${c.name}')">Contatar agora</button>`}
+      </div>
+    </div>`;
+  }).join("") : '<div class="dnote">Nenhum treinador nessa modalidade por enquanto.</div>';
+}
+function toggleCoachProfile(name) {
+  expandedCoachProfile = expandedCoachProfile === name ? null : name;
+  renderCoaches();
+}
+function contactCoach(name) {
+  coachContactedSet.add(name);
+  renderCoaches();
+  const firstName = name.split(" ")[1] || name.split(" ")[0];
+  demoToast("Mensagem enviada pra " + firstName + "! (demonstração)");
+}
+function toggleCoachSignup() {
+  const form = el('coach-signup-form');
+  const open = form.classList.toggle('open');
+  el('coach-signup-btn').textContent = open ? 'Fechar formulário' : 'Quero ser treinador';
+  if (open) { el('csf-msg').style.display = 'none'; form.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+}
+function submitCoachSignup() {
+  const name = el('csf-name').value.trim();
+  const mod = el('csf-mod').value;
+  const city = el('csf-city').value.trim() || "Blumenau/SC";
+  const spec = el('csf-spec').value.trim() || "Treinador(a) cadastrado(a) no Tri Life";
+  const price = el('csf-price').value.trim() || "Valores a combinar";
+  const sched = el('csf-sched').value.trim() || "Agenda a combinar";
+  const msg = el('csf-msg');
+  if (!name) {
+    msg.textContent = "Preenche pelo menos o nome pra eu poder te cadastrar.";
+    msg.style.display = "block";
+    msg.style.color = "#c0392b";
+    el('csf-name').focus();
+    return;
+  }
+  const init = name.replace(/^Prof\.?\s*/i, "").split(" ").filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join("") || "TR";
+  demoCoaches.push({ name, init, mod, city, specialty: spec, stars: "Novo(a) no Tri Life",
+    bio: spec + ".", price, sched });
+  toggleCoachSignup();
+  el('csf-name').value = ""; el('csf-spec').value = ""; el('csf-price').value = ""; el('csf-sched').value = "";
+  el('coach-filter-mod').value = "all";
+  renderCoaches();
+  demoToast("Cadastro enviado! Seu perfil já aparece na lista de treinadores (demonstração)");
+}
+function switchTreinoSub(name) {
+  document.querySelectorAll('#view-demo .dsubtab[data-tsub]').forEach(t => t.classList.toggle('active', t.dataset.tsub === name));
+  document.querySelectorAll('#view-demo #dsec-treinos .dmsub').forEach(s => s.classList.toggle('active', s.id === 'tsub-' + name));
+}
+
+/* ---- dados fictícios de matches / mapa (demonstração) ---- */
+const DEMO_MOD_LABELS = { swim: "🏊 Natação", bike: "🚴 Pedal", run: "🏃 Corrida" };
+const demoMatches = [
+  { name: "Juliana Preiss", city: "Blumenau/SC", mod: "swim", lvl: 4, compat: 92, km: 1.2, x: 38, y: 32,
+    swim: 4, bike: 2, run: 3, bio: "Nadadora desde criança, adoro ajudar iniciantes a perder o medo da água." },
+  { name: "Eduardo Bazzi", city: "Blumenau/SC", mod: "bike", lvl: 3, compat: 88, km: 2.5, x: 68, y: 58,
+    swim: 2, bike: 3, run: 2, bio: "Pedal é minha paixão, topo rodar em qualquer ritmo." },
+  { name: "Marina Schroeder", city: "Blumenau/SC", mod: "run", lvl: 3, compat: 85, km: 0.8, x: 60, y: 28,
+    swim: 2, bike: 3, run: 3, bio: "Corredora de rua buscando evoluir pro triathlon completo." },
+  { name: "Gustavo Lenzi", city: "Gaspar/SC", mod: "swim", lvl: 5, compat: 95, km: 6.1, x: 15, y: 70,
+    swim: 5, bike: 3, run: 3, bio: "Ex-atleta de natação, hoje treino triathlon por hobby." },
+  { name: "Patrícia Fontana", city: "Blumenau/SC", mod: "bike", lvl: 2, compat: 70, km: 3.4, x: 30, y: 75,
+    swim: 1, bike: 2, run: 2, bio: "Comecei a pedalar esse ano, buscando gente pra treinar junto." },
+  { name: "Vinícius Hahn", city: "Indaial/SC", mod: "run", lvl: 5, compat: 90, km: 8.7, x: 82, y: 18,
+    swim: 3, bike: 4, run: 5, bio: "Maratonista evoluindo pro triathlon, forte em resistência." },
+];
+let matchSentSet = new Set();
+let matchPassedSet = new Set();
+let expandedMatchProfile = null;
+function initials(name) { return name.split(" ").map(p => p[0]).slice(0, 2).join("").toUpperCase(); }
+
+function matchBarsHtml(m) {
+  return ["swim", "bike", "run"].map(k => `
+    <div class="dbar-row"><div class="dlbl">${DEMO_MOD_LABELS[k]}</div><div class="dbar-track"><div class="dbar-fill" style="width:${m[k] * 20}%;"></div></div><div class="dbar-val">${m[k]}</div></div>`).join("");
+}
+function renderMatches() {
+  const modF = el("match-filter-mod").value;
+  const lvlF = parseInt(el("match-filter-lvl").value, 10);
+  const list = demoMatches.filter(m => (modF === "all" || m.mod === modF) && m.lvl >= lvlF && !matchPassedSet.has(m.name));
+  const wrap = el("matches-wrap");
+  el("matches-empty").style.display = list.length ? "none" : "block";
+  wrap.innerHTML = list.map((m, i) => {
+    const sent = matchSentSet.has(m.name);
+    const open = expandedMatchProfile === m.name;
+    return `
+    <div style="padding:12px 0;${i > 0 ? 'border-top:1px solid var(--line);' : ''}">
+      <div class="dmatch-card">
+        <div class="davatar sm">${initials(m.name)}</div>
+        <div class="dmi">
+          <div class="dmn">${m.name}</div>
+          <div class="dmc">${m.city} · ${DEMO_MOD_LABELS[m.mod]} Nv ${m.lvl} · ${m.km.toFixed(1).replace('.', ',')} km</div>
+        </div>
+        <div class="dcompat" style="--pct:${m.compat};" data-pct="${m.compat}"></div>
+        <div class="dmatch-actions">
+          <button class="dbtn txt" onclick="toggleMatchProfile('${m.name}')">${open ? 'Fechar' : 'Ver perfil'}</button>
+          ${sent
+            ? `<span class="dreq-status pending" style="white-space:nowrap;">Enviado</span>`
+            : `<button class="dbtn" onclick="passMatch('${m.name}')">✕</button><button class="dbtn gold" onclick="likeMatch('${m.name}', '${m.mod}')">💛</button>`}
+        </div>
+      </div>
+      <div class="dmatch-profile ${open ? 'open' : ''}">
+        <div class="dmp-bio">"${m.bio}"</div>
+        ${matchBarsHtml(m)}
+      </div>
+    </div>`;
+  }).join("");
+}
+function toggleMatchProfile(name) {
+  expandedMatchProfile = expandedMatchProfile === name ? null : name;
+  renderMatches();
+}
+function passMatch(name) {
+  matchPassedSet.add(name);
+  renderMatches();
+  demoToast("Pulado (demonstração)");
+}
+function likeMatch(name, mod) {
+  matchSentSet.add(name);
+  if (!demoSentRequests.some(r => r.name === name)) {
+    demoSentRequests.push({ name: name, mod: mod, status: "pending" });
+  }
+  renderMatches();
+  renderPedidos();
+  demoToast("Match enviado pra " + name.split(" ")[0] + "! Acompanha em Pedidos.");
+}
+
+function renderDemoMap() {
+  const maxKm = parseInt(el("map-filter-km").value, 10);
+  const inRange = demoMatches.filter(m => m.km <= maxKm);
+  const mapEl = el("demo-map");
+  mapEl.querySelectorAll(".dmap-pin").forEach(p => p.remove());
+  inRange.forEach(m => {
+    const pin = document.createElement("div");
+    pin.className = "dmap-pin " + (m.mod === "swim" ? "natacao" : m.mod === "bike" ? "pedal" : "corrida");
+    pin.style.left = m.x + "%";
+    pin.style.top = m.y + "%";
+    pin.innerHTML = `<span>${initials(m.name)}</span>`;
+    pin.onclick = () => showMapDetail(m.name);
+    mapEl.appendChild(pin);
+  });
+  const nearby = inRange.slice().sort((a, b) => a.km - b.km);
+  el("nearby-list").innerHTML = nearby.length ? nearby.map(m => `
+    <div class="dnearby-item" style="cursor:pointer;" onclick="showMapDetail('${m.name}')">
+      <div class="davatar sm">${initials(m.name)}</div>
+      <div class="dni"><div class="dnn">${m.name}</div><div class="dnc">${DEMO_MOD_LABELS[m.mod]} Nv ${m.lvl} · ${m.city}</div></div>
+      <div class="dndist">${m.km.toFixed(1).replace('.', ',')} km</div>
+    </div>`).join("") : '<div class="dnote">Ninguém nesse raio — tenta aumentar a distância.</div>';
+  const detailEl = el("map-detail");
+  if (!inRange.some(m => m.name === window.__mapDetailOpen)) { detailEl.classList.remove("open"); detailEl.innerHTML = ""; window.__mapDetailOpen = null; }
+}
+function showMapDetail(name) {
+  const m = demoMatches.find(x => x.name === name);
+  if (!m) return;
+  window.__mapDetailOpen = name;
+  const sent = matchSentSet.has(name);
+  const detailEl = el("map-detail");
+  detailEl.classList.add("open");
+  detailEl.innerHTML = `
+    <div class="dmdh"><div class="davatar sm">${initials(m.name)}</div><div><div class="dmdn">${m.name}</div><div class="dmdc">${DEMO_MOD_LABELS[m.mod]} Nv ${m.lvl} · ${m.city} · ${m.km.toFixed(1).replace('.', ',')} km de você</div></div></div>
+    <div class="dmp-bio">"${m.bio}"</div>
+    ${matchBarsHtml(m)}
+    <div class="dmd-actions">
+      ${sent ? `<span class="dreq-status pending">Convite enviado</span>` : `<button class="dbtn gold" onclick="likeMatch('${m.name}', '${m.mod}'); showMapDetail('${m.name}');">💛 Convidar pra treinar</button>`}
+    </div>`;
+}
+
+/* ---- pedidos de match (enviados / recebidos) ---- */
+let demoReceivedRequests = [
+  { name: "Eduardo Bazzi", mod: "bike", status: "pending" },
+  { name: "Patrícia Fontana", mod: "bike", status: "pending" },
+];
+let demoSentRequests = [
+  { name: "Gustavo Lenzi", mod: "swim", status: "pending" },
+  { name: "Marina Schroeder", mod: "run", status: "accepted" },
+];
+const STATUS_LABEL = { pending: "Pendente", accepted: "Aceito", declined: "Recusado" };
+
+function renderPedidos() {
+  const recEl = el("received-list");
+  recEl.innerHTML = demoReceivedRequests.length ? demoReceivedRequests.map((r, i) => `
+    <div class="dreq-item">
+      <div class="davatar sm">${initials(r.name)}</div>
+      <div class="dri"><div class="drn">${r.name}</div><div class="drc">${DEMO_MOD_LABELS[r.mod]}</div></div>
+      ${r.status === "pending"
+        ? `<div class="dreq-actions"><button class="dbtn" onclick="respondRequest(${i}, 'declined')">Recusar</button><button class="dbtn gold" onclick="respondRequest(${i}, 'accepted')">Aceitar</button></div>`
+        : `<div class="dreq-status ${r.status}">${STATUS_LABEL[r.status]}</div>`}
+    </div>`).join("") : '<div class="dnote">Nenhum pedido recebido por enquanto.</div>';
+
+  const sentEl = el("sent-list");
+  sentEl.innerHTML = demoSentRequests.length ? demoSentRequests.map(r => `
+    <div class="dreq-item">
+      <div class="davatar sm">${initials(r.name)}</div>
+      <div class="dri"><div class="drn">${r.name}</div><div class="drc">${DEMO_MOD_LABELS[r.mod]}</div></div>
+      <div class="dreq-status ${r.status}">${STATUS_LABEL[r.status]}</div>
+    </div>`).join("") : '<div class="dnote">Você ainda não enviou nenhum pedido.</div>';
+
+  const pendingCount = demoReceivedRequests.filter(r => r.status === "pending").length;
+  el("pedidos-badge").textContent = pendingCount ? "(" + pendingCount + ")" : "";
+}
+function toggleTrain(id) {
+  const detail = el(id);
+  const btn = detail.previousElementSibling;
+  const open = detail.classList.toggle("open");
+  btn.textContent = open ? "Ocultar detalhes ▴" : "Ver detalhes ▾";
+}
+function respondRequest(i, status) {
+  demoReceivedRequests[i].status = status;
+  renderPedidos();
+  demoToast(status === "accepted" ? "Match aceito! (demonstração)" : "Pedido recusado (demonstração)");
+}
+/* ---- convite enviado a partir de Amigos ---- */
+function sendInvite(btn, name, mod) {
+  if (btn.classList.contains("sent")) return;
+  btn.textContent = "✓ Convite enviado";
+  btn.classList.add("sent");
+  btn.disabled = true;
+  if (!demoSentRequests.some(r => r.name === name)) {
+    demoSentRequests.push({ name: name, mod: mod, status: "pending" });
+  }
+  renderPedidos();
+  demoToast("Convite enviado pra " + name.split(" ")[0] + "! Acompanha em Matches → Pedidos.");
+}
+let demoToastTimer = null;
+function demoToast(msg) {
+  let t = document.getElementById('demo-toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'demo-toast';
+    t.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#0A2A66;color:#fff;padding:10px 18px;border-radius:999px;font-family:Inter,sans-serif;font-size:12.5px;z-index:9999;box-shadow:0 6px 18px rgba(10,42,102,.25);';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.display = 'block';
+  clearTimeout(demoToastTimer);
+  demoToastTimer = setTimeout(() => { t.style.display = 'none'; }, 2200);
+}
+</script>
+<script>
+
+const MOD_LABELS = { swim: "🏊 Natação", bike: "🚴 Pedal", run: "🏃 Corrida" };
+const CLUBS = [
+  { id: "tri-blumenau", name: "Clube Tri Blumenau", desc: "Grupo de treino geral multiesportivo", city: "Blumenau/SC" },
+  { id: "runfast", name: "Assessoria RunFast", desc: "Assessoria especializada em corrida", city: "Blumenau/SC" },
+  { id: "bike-vale", name: "Bike Clube Vale", desc: "Grupo de pedal de estrada e MTB", city: "Gaspar/SC" },
+  { id: "natacao-vale", name: "Equipe Natação Vale", desc: "Treino de natação em piscina e águas abertas", city: "Indaial/SC" },
+];
+
+let selfId = null, myProfile = null, myEmail = null;
+let allAthletes = [];
+let coachTurns = [];
+
+function el(id) { return document.getElementById(id); }
+function show(id, on) { el(id).style.display = on ? "" : "none"; }
+function escapeHtml(s) { return String(s || "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+function escapeAttr(s) { return escapeHtml(s).replace(/'/g, "\\'"); }
+function hashStr(s) { let h = 0; for (let i = 0; i < s.length; i++) { h = (h * 31 + s.charCodeAt(i)) >>> 0; } return h; }
+
+function applyLoginModeText() {
+  if (usingLocalMode) {
+    el("login-title").textContent = "Entrar no Tri Life (demonstração)";
+    el("login-sub").textContent = "Sem Supabase configurado ainda — digite um nome pra testar o app neste navegador.";
+    el("login-field-label").textContent = "Seu nome";
+    el("login-email").type = "text";
+    el("login-email").placeholder = "Como te chamam";
+    el("login-submit").textContent = "Entrar";
+  }
+}
+
+async function init() {
+  try {
+    applyLoginModeText();
+
+    const sessionResult = await sbClient.auth.getSession();
+    const session = sessionResult && sessionResult.data && sessionResult.data.session;
+    if (!session) {
+      show("loading", false);
+      show("signed-out", true);
+      return;
+    }
+    selfId = session.user.id;
+    myEmail = session.user.email;
+    await loadProfile();
+  } catch (err) {
+    console.error(err);
+    show("loading", false);
+    showLoadingTimeoutError();
+    showFatalError('Erro ao entrar: ' + (err.message || String(err)) + '. Tire um print disso e manda pro suporte.');
+  }
+}
+
+/* Protegido: isso só é usado no fluxo de login real (não na demonstração).
+   Se "supabase" não estiver pronto por algum motivo do ambiente, não deixa
+   a página inteira travar por causa disso. */
+try {
+  if (sbClient && sbClient.auth && typeof sbClient.auth.onAuthStateChange === "function") {
+    sbClient.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN" && session && !selfId) {
+        selfId = session.user.id;
+        myEmail = session.user.email;
+        show("signed-out", false);
+        resetLoadingMsg();
+        show("loading", true);
+        armLoadingWatchdog();
+        loadProfile();
+      }
+    });
+  }
+} catch (err) { console.error("onAuthStateChange não disponível:", err); }
+
+el("login-form") && el("login-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const btn = el("login-submit");
+  const msg = el("login-msg");
+  const value = el("login-email").value.trim();
+  if (!value) return;
+  btn.disabled = true; msg.textContent = ""; msg.className = "msg";
+
+  if (usingLocalMode) {
+    const session = sbClient._localLogin(value);
+    selfId = session.user.id;
+    myEmail = session.user.email;
+    show("signed-out", false);
+    resetLoadingMsg();
+    show("loading", true);
+    armLoadingWatchdog();
+    await loadProfile();
+    btn.disabled = false;
+    return;
+  }
+
+  try {
+    const { error } = await sbClient.auth.signInWithOtp({ email: value, options: { emailRedirectTo: window.location.href } });
+    if (error) throw error;
+    msg.textContent = "Te mandamos um link de acesso — confira seu e-mail.";
+    msg.className = "msg ok";
+  } catch (err) {
+    console.error(err);
+    msg.textContent = "Não consegui enviar o link agora. Confira o e-mail e tente de novo.";
+    msg.className = "msg err";
+  } finally { btn.disabled = false; }
+});
+
+async function loadProfile() {
+  try {
+    const result = await sbClient.from("athletes").select("*").eq("id", selfId).maybeSingle();
+    const data = result && result.data;
+    myProfile = data || null;
+    show("loading", false);
+
+    if (!myProfile || !myProfile.name) {
+      show("onboarding", true);
+      show("app-shell", false);
+    } else {
+      show("onboarding", false);
+      show("app-shell", true);
+      renderApp();
+    }
+  } catch (err) {
+    console.error(err);
+    show("loading", false);
+    showLoadingTimeoutError();
+    showFatalError('Erro ao carregar seu perfil: ' + (err.message || String(err)) + '. Tire um print disso e manda pro suporte.');
+  }
+}
+
+el("onb-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const btn = el("onb-submit");
+  const msg = el("onb-msg");
+  btn.disabled = true; msg.textContent = ""; msg.className = "msg";
+
+  const profile = {
+    id: selfId,
+    name: el("onb-name").value.trim(),
+    city: el("onb-city").value.trim(),
+    bio: el("onb-bio").value.trim(),
+    swim: parseInt(el("onb-swim").value, 10),
+    bike: parseInt(el("onb-bike").value, 10),
+    run: parseInt(el("onb-run").value, 10),
+    availability: el("onb-avail").value.trim(),
+    updated_at: new Date().toISOString(),
+  };
+  try {
+    const { error } = await sbClient.from("athletes").upsert(profile);
+    if (error) throw error;
+    myProfile = profile;
+    show("onboarding", false);
+    show("app-shell", true);
+    renderApp();
+  } catch (err) {
+    console.error(err);
+    msg.textContent = "Não consegui salvar seu perfil agora. Tenta de novo.";
+    msg.className = "msg err";
+  } finally { btn.disabled = false; }
+});
+
+el("edit-profile-btn").addEventListener("click", () => {
+  el("onb-name").value = myProfile.name || "";
+  el("onb-city").value = myProfile.city || "";
+  el("onb-bio").value = myProfile.bio || "";
+  el("onb-swim").value = myProfile.swim || 3;
+  el("onb-bike").value = myProfile.bike || 3;
+  el("onb-run").value = myProfile.run || 3;
+  el("onb-avail").value = myProfile.availability || "";
+  show("app-shell", false);
+  show("onboarding", true);
+});
+
+function barsHtml(profile) {
+  return ["swim", "bike", "run"].map(m => `
+    <div class="bar-row"><div class="lbl">${MOD_LABELS[m]}</div><div class="bar-track"><div class="bar-fill" style="width:${(profile[m] || 0) * 20}%;"></div></div><div class="val">${profile[m] || 0}</div></div>`).join("");
+}
+function weakestModality(p) { return ["swim", "bike", "run"].reduce((a, b) => (p[a] <= p[b] ? a : b)); }
+function strongestModality(p) { return ["swim", "bike", "run"].reduce((a, b) => (p[a] >= p[b] ? a : b)); }
+
+/* ---------------- NAV ---------------- */
+document.querySelectorAll('[data-sec]').forEach(elx => {
+  elx.addEventListener('click', () => switchSection(elx.dataset.sec));
+});
+function switchSection(name) {
+  document.querySelectorAll('.app-sb .asn').forEach(a => a.classList.toggle('active', a.dataset.sec === name));
+  document.querySelectorAll('.asec').forEach(s => s.classList.toggle('active', s.id === 'sec-' + name));
+  if (name === 'mapa') loadMap();
+  if (name === 'clubes') loadClubs();
+  if (name === 'historico') loadHistory();
+  if (name === 'recuperacao') loadRecovery();
+  if (name === 'perfil') renderProfileSection();
+}
+
+function renderApp() {
+  el('home-greet').textContent = 'Olá, ' + myProfile.name + ' 👋';
+  el('who-box').textContent = myEmail || 'conectado';
+  if (usingLocalMode) {
+    el('mode-tag').textContent = 'DEMONSTRAÇÃO';
+    show('local-mode-banner', true);
+  }
+  renderProfileSection();
+  loadMatches();
+  loadIncoming();
+  if (!COACH_API_URL) { show('coach-area', false); show('coach-unavailable', true); }
+}
+
+/* ---------------- PERFIL ---------------- */
+function renderProfileSection() {
+  el('pv-name').textContent = myProfile.name;
+  el('pv-city').textContent = myProfile.city + (myProfile.availability ? ' · ' + myProfile.availability : '');
+  el('pv-bio').textContent = myProfile.bio || '';
+  el('pv-bars').innerHTML = barsHtml(myProfile);
+  el('profile-avatar').textContent = (myProfile.name || '?').slice(0, 2).toUpperCase();
+}
+
+/* ---------------- SUGESTOES / PEDIDOS (matches) ---------------- */
+async function loadMatches() {
+  el('matches-list').innerHTML = '<div class="empty">Carregando…</div>';
+  const { data } = await sbClient.from('athletes').select('*');
+  allAthletes = data || [];
+  const others = allAthletes.filter(a => a.id !== selfId && a.name);
+  el('st-matches').textContent = Math.min(others.length, 6);
+
+  if (others.length === 0) {
+    el('matches-list').innerHTML = '<div class="empty">Ainda não há outros atletas cadastrados. Volte quando mais gente entrar no Tri Life!</div>';
+    return;
+  }
+  const myWeak = weakestModality(myProfile);
+  const myStrong = strongestModality(myProfile);
+  const scored = others.map(a => ({ ...a, score: (a[myWeak] || 0) - (a[myStrong] || 0) })).sort((x, y) => y.score - x.score).slice(0, 6);
+
+  el('matches-list').innerHTML = scored.map(a => `
+    <div class="club-card">
+      <div>
+        <div class="cn">${escapeHtml(a.name)} · ${escapeHtml(a.city || '')}</div>
+        <div class="cd">Nível ${a[myWeak]} em ${MOD_LABELS[myWeak]} — pode te ajudar a evoluir</div>
+      </div>
+      <button class="btn gold small" onclick="sendRequest('${a.id}', '${escapeAttr(a.name)}', '${myWeak}')">Sugerir treino</button>
+    </div>`).join('');
+}
+
+async function sendRequest(toId, toName, modality) {
+  try {
+    const { error } = await sbClient.from('matches').insert({ from_id: selfId, from_name: myProfile.name, to_id: toId, to_name: toName, modality, status: 'pendente' });
+    if (error) throw error;
+    loadMatches();
+  } catch (e) { console.error(e); alert('Não consegui enviar o pedido agora.'); }
+}
+
+async function loadIncoming() {
+  el('incoming-list').innerHTML = '<div class="empty">Carregando…</div>';
+  const { data } = await sbClient.from('matches').select('*').or(`from_id.eq.${selfId},to_id.eq.${selfId}`);
+  const all = data || [];
+  const incoming = all.filter(m => m.to_id === selfId && m.status === 'pendente');
+  el('st-pending').textContent = incoming.length;
+  const confirmedCount = all.filter(m => m.status === 'aceito').length;
+  el('st-confirmed').textContent = confirmedCount;
+
+  if (incoming.length === 0) {
+    el('incoming-list').innerHTML = '<div class="empty">Nenhum pedido pendente por enquanto.</div>';
+    return;
+  }
+  el('incoming-list').innerHTML = incoming.map(m => `
+    <div class="club-card">
+      <div>
+        <div class="cn">${escapeHtml(m.from_name || 'Atleta')}</div>
+        <div class="cd">Quer treinar ${MOD_LABELS[m.modality] || m.modality} com você</div>
+        <span class="pill pendente">PENDENTE</span>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <button class="btn gold small" onclick="respond('${m.id}', 'aceito')">Aceitar</button>
+        <button class="btn ghost small" onclick="respond('${m.id}', 'recusado')">Recusar</button>
+      </div>
+    </div>`).join('');
+}
+async function respond(matchId, status) {
+  try { const { error } = await sbClient.from('matches').update({ status }).eq('id', matchId); if (error) throw error; loadIncoming(); } catch (e) { console.error(e); alert('Não consegui atualizar o pedido agora.'); }
+}
+el('refresh-matches').addEventListener('click', loadMatches);
+el('refresh-incoming').addEventListener('click', loadIncoming);
+
+/* ---------------- MAPA ---------------- */
+async function loadMap() {
+  const box = el('map-box');
+  box.innerHTML = '';
+  el('map-popover').innerHTML = '';
+  const { data } = await sbClient.from('athletes').select('*');
+  allAthletes = data || [];
+  const others = allAthletes.filter(a => a.id !== selfId && a.name);
+  if (others.length === 0) {
+    box.innerHTML = '<div class="empty" style="padding-top:130px;">Ainda não há outros atletas pra mostrar no mapa.</div>';
+    return;
+  }
+  others.forEach(a => {
+    const h = hashStr(a.id);
+    const top = 10 + (h % 75);
+    const left = 10 + ((h >> 8) % 80);
+    const strong = strongestModality(a);
+    const color = strong === 'bike' ? '#1E88E5' : strong === 'run' ? '#D4AF37' : '#7FD4FF';
+    const pin = document.createElement('div');
+    pin.className = 'map-pin';
+    pin.style.top = top + '%'; pin.style.left = left + '%'; pin.style.background = color;
+    pin.textContent = a.name.slice(0, 2).toUpperCase();
+    pin.onclick = () => showMapPopover(a);
+    box.appendChild(pin);
+  });
+}
+function showMapPopover(a) {
+  const myWeak = weakestModality(myProfile);
+  el('map-popover').innerHTML = `
+    <div class="map-popover">
+      <div class="nm">${escapeHtml(a.name)} · ${escapeHtml(a.city || '')}</div>
+      <div style="font-size:11px; color:var(--muted); margin:6px 0 10px;">
+        🏊 ${a.swim || 0} · 🚴 ${a.bike || 0} · 🏃 ${a.run || 0}
+      </div>
+      <button class="btn gold small" onclick="sendRequest('${a.id}', '${escapeAttr(a.name)}', '${myWeak}')">Sugerir treino</button>
+    </div>`;
+}
+
+/* ---------------- CLUBES ---------------- */
+async function loadClubs() {
+  el('clubs-list').innerHTML = '<div class="empty">Carregando…</div>';
+  const { data } = await sbClient.from('club_applications').select('*').eq('athlete_id', selfId);
+  const mine = data || [];
+  el('clubs-list').innerHTML = CLUBS.map(c => {
+    const existing = mine.find(a => a.club_id === c.id);
+    const action = existing
+      ? `<span class="pill ${existing.status}">${existing.status === 'aceito' ? 'ACEITO' : existing.status === 'recusado' ? 'RECUSADO' : 'CANDIDATURA ENVIADA'}</span>`
+      : `<button class="btn gold small" onclick="applyToClub('${c.id}', '${escapeAttr(c.name)}')">Candidatar-se</button>`;
+    return `
+      <div class="club-card">
+        <div>
+          <div class="cn">${escapeHtml(c.name)} · ${escapeHtml(c.city)}</div>
+          <div class="cd">${escapeHtml(c.desc)}</div>
+        </div>
+        ${action}
+      </div>`;
+  }).join('');
+}
+async function applyToClub(clubId, clubName) {
+  try {
+    const { error } = await sbClient.from('club_applications').insert({ athlete_id: selfId, athlete_name: myProfile.name, club_id: clubId, club_name: clubName, status: 'pendente' });
+    if (error) throw error;
+    loadClubs();
+  } catch (e) { console.error(e); alert('Não consegui enviar a candidatura agora.'); }
+}
+
+/* ---------------- HISTORICO ---------------- */
+el('hist-date').valueAsDate = new Date();
+el('hist-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const msg = el('hist-msg');
+  msg.textContent = ''; msg.className = 'msg';
+  const entry = {
+    athlete_id: selfId,
+    date: el('hist-date').value,
+    modality: el('hist-modality').value,
+    partner: el('hist-partner').value.trim(),
+    notes: el('hist-notes').value.trim(),
+  };
+  try {
+    const { error } = await sbClient.from('training_log').insert(entry);
+    if (error) throw error;
+    msg.textContent = 'Treino registrado!'; msg.className = 'msg ok';
+    el('hist-partner').value = ''; el('hist-notes').value = '';
+    loadHistory();
+  } catch (err) { console.error(err); msg.textContent = 'Não consegui registrar agora.'; msg.className = 'msg err'; }
+});
+async function loadHistory() {
+  el('history-list').innerHTML = '<div class="empty">Carregando…</div>';
+  const { data } = await sbClient.from('training_log').select('*').eq('athlete_id', selfId).order('date', { ascending: false });
+  const mine = data || [];
+  if (mine.length === 0) {
+    el('history-list').innerHTML = '<div class="empty">Nenhum treino registrado ainda.</div>';
+    return;
+  }
+  el('history-list').innerHTML = mine.map(h => `
+    <div class="hist-item">
+      <div><div class="ht">${MOD_LABELS[h.modality] || h.modality}${h.partner ? ' · com ' + escapeHtml(h.partner) : ''}</div><div class="hd">${escapeHtml(h.notes || '')}</div></div>
+      <div class="hd">${escapeHtml(h.date || '')}</div>
+    </div>`).join('');
+}
+
+/* ---------------- RECUPERACAO ---------------- */
+el('rec-energy').addEventListener('input', () => { el('rec-energy-v').textContent = el('rec-energy').value; });
+el('rec-soreness').addEventListener('input', () => { el('rec-soreness-v').textContent = el('rec-soreness').value; });
+let restDay = false;
+el('rec-rest').addEventListener('click', () => { restDay = !restDay; el('rec-rest').classList.toggle('on', restDay); });
+
+el('rec-save').addEventListener('click', async () => {
+  const msg = el('rec-msg');
+  msg.textContent = ''; msg.className = 'msg';
+  const today = new Date().toISOString().slice(0, 10);
+  const entry = { id: selfId + '_' + today, athlete_id: selfId, date: today, energy: parseInt(el('rec-energy').value, 10), soreness: parseInt(el('rec-soreness').value, 10), rest_day: restDay };
+  try {
+    const { error } = await sbClient.from('recovery_logs').upsert(entry);
+    if (error) throw error;
+    msg.textContent = 'Check-in salvo!'; msg.className = 'msg ok';
+    loadRecovery();
+  } catch (err) { console.error(err); msg.textContent = 'Não consegui salvar agora.'; msg.className = 'msg err'; }
+});
+async function loadRecovery() {
+  el('rec-log').innerHTML = '<div class="empty">Carregando…</div>';
+  const { data } = await sbClient.from('recovery_logs').select('*').eq('athlete_id', selfId).order('date', { ascending: false }).limit(7);
+  const mine = data || [];
+  if (mine.length === 0) { el('rec-log').innerHTML = '<div class="empty">Nenhum check-in ainda.</div>'; return; }
+  el('rec-log').innerHTML = mine.map(r => `
+    <div class="checkin-log-item"><span>${escapeHtml(r.date)}${r.rest_day ? ' · descanso' : ''}</span><span>Energia ${r.energy} · Dor ${r.soreness}</span></div>`).join('');
+}
+
+/* ---------------- COACH ---------------- */
+function addBubble(role, text) {
+  const box = el('chat-box');
+  const b = document.createElement('div');
+  b.className = 'bubble ' + role;
+  b.textContent = text;
+  box.appendChild(b);
+  box.scrollTop = box.scrollHeight;
+  return b;
+}
+el('chat-send').addEventListener('click', sendChat);
+el('chat-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') sendChat(); });
+
+async function sendChat() {
+  const input = el('chat-input');
+  const text = input.value.trim();
+  if (!text || !COACH_API_URL) return;
+  input.value = '';
+  addBubble('user', text);
+  coachTurns.push({ role: 'user', content: text });
+
+  const thinking = addBubble('assistant thinking', 'Pensando...');
+  const btn = el('chat-send'); btn.disabled = true;
+
+  try {
+    const res = await fetch(COACH_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ turns: coachTurns, profile: myProfile }),
+    });
+    if (!res.ok) throw new Error('request failed');
+    const { answer } = await res.json();
+    thinking.classList.remove('thinking');
+    thinking.textContent = answer;
+    coachTurns.push({ role: 'assistant', content: answer });
+  } catch (e) {
+    console.error(e);
+    thinking.classList.remove('thinking');
+    thinking.textContent = 'Não consegui responder agora.';
+  } finally { btn.disabled = false; }
+}
+
+</script>
+</body>
+</html>
